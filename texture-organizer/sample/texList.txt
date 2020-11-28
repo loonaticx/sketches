@@ -1,0 +1,6 @@
+trees.egg
+{'../tree_big_trunk.png', '../tree_gen.png', '../new_treebox_side_breaks.png', '../new_treebox_dirt.png', '../drop-shadow.png', '../tree_small_top.png', '../tree_big_top.png', '../tree_small_trunk.png', '../new_treebox_side3.png'}
+
+westernView.egg
+{'../WesternBgLeft.png', '../WesternBgMiddle.png', '../WesternBarrelCactus.png', '../WesternRocks.png', '../WesternGround.png', '../window1.png', '../WesternBrush1.png', '../WesternBgRt.png', '../WesternCactus.png', '../WesternSkyTop.png'}
+
