@@ -1,0 +1,59 @@
+<CoordinateSystem> { Y-Up }
+
+<Texture> initialShadingGroup {
+  texture.png
+  <Scalar> format { LUMINANCE }
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+<Group> pPlane1 {
+  <VertexPool> pPlaneShape1.verts {
+    <Vertex> 0 {
+      -2.08026632752353 -2.08026632752353 -9.23823829667614e-16
+      <UV> {
+        0 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 1 {
+      -2.08026632752353 2.08026632752353 9.23823829667614e-16
+      <UV> {
+        0 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 2 {
+      2.08026632752353 -2.08026632752353 -9.23823829667614e-16
+      <UV> {
+        1 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 3 {
+      2.08026632752353 2.08026632752353 9.23823829667614e-16
+      <UV> {
+        1 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <TRef> { initialShadingGroup }
+    <VertexRef> { 0 2 3 1 <Ref> { pPlaneShape1.verts } }
+  }
+}
