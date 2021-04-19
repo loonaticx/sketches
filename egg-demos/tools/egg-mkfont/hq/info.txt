@@ -1,0 +1,75 @@
+Generating using 100 pixels per unit (default is 40) 
+Generating using size 40 point font (default is 10) 
+
+Resizing hq/output_35.png to 256 512
+Generating new hq/output_1.png
+Writing hq/output_1.png
+Generating new hq/output_2.png
+Writing hq/output_2.png
+Generating new hq/output_3.png
+Writing hq/output_3.png
+Generating new hq/output_4.png
+Writing hq/output_4.png
+Generating new hq/output_5.png
+Writing hq/output_5.png
+Generating new hq/output_6.png
+Writing hq/output_6.png
+Generating new hq/output_7.png
+Writing hq/output_7.png
+Generating new hq/output_8.png
+Writing hq/output_8.png
+Generating new hq/output_9.png
+Writing hq/output_9.png
+Generating new hq/output_10.png
+Writing hq/output_10.png
+Generating new hq/output_11.png
+Writing hq/output_11.png
+Generating new hq/output_12.png
+Writing hq/output_12.png
+Generating new hq/output_13.png
+Writing hq/output_13.png
+Generating new hq/output_14.png
+Writing hq/output_14.png
+Generating new hq/output_15.png
+Writing hq/output_15.png
+Generating new hq/output_16.png
+Writing hq/output_16.png
+Generating new hq/output_17.png
+Writing hq/output_17.png
+Generating new hq/output_18.png
+Writing hq/output_18.png
+Generating new hq/output_19.png
+Writing hq/output_19.png
+Generating new hq/output_20.png
+Writing hq/output_20.png
+Generating new hq/output_21.png
+Writing hq/output_21.png
+Generating new hq/output_22.png
+Writing hq/output_22.png
+Generating new hq/output_23.png
+Writing hq/output_23.png
+Generating new hq/output_24.png
+Writing hq/output_24.png
+Generating new hq/output_25.png
+Writing hq/output_25.png
+Generating new hq/output_26.png
+Writing hq/output_26.png
+Generating new hq/output_27.png
+Writing hq/output_27.png
+Generating new hq/output_28.png
+Writing hq/output_28.png
+Generating new hq/output_29.png
+Writing hq/output_29.png
+Generating new hq/output_30.png
+Writing hq/output_30.png
+Generating new hq/output_31.png
+Writing hq/output_31.png
+Generating new hq/output_32.png
+Writing hq/output_32.png
+Generating new hq/output_33.png
+Writing hq/output_33.png
+Generating new hq/output_34.png
+Writing hq/output_34.png
+Generating new hq/output_35.png
+Writing hq/output_35.png
+Writing hq/output.egg

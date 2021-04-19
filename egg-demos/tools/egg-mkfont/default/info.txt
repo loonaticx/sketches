@@ -1,0 +1,6 @@
+Generating with no special flags. 
+
+Resizing default/output_1.png to 512 256
+Generating new default/output_1.png
+Writing default/output_1.png
+Writing default/output.egg

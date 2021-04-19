@@ -1,0 +1,5 @@
+
+Resizing gp/output_1.png to 64 16
+Generating new gp/output_1.png
+Writing gp/output_1.png
+Writing gp/output.egg

@@ -1,0 +1,6 @@
+Generating signed distance field text 
+
+Resizing sdf/output_1.png to 256 512
+Generating new sdf/output_1.png
+Writing sdf/output_1.png
+Writing sdf/output.egg

@@ -1,0 +1,7 @@
+Generating currency Unicode symbols in Times New Roman font. 
+https://www.utf8-chartable.de/unicode-utf8-table.pl?utf8=0x 
+
+Resizing unicode/output_1.png to 256 128
+Generating new unicode/output_1.png
+Writing unicode/output_1.png
+Writing unicode/output.egg
