@@ -1,0 +1,213 @@
+
+Demo batch file modifies some names of group nodes, converts textures from png to jpg, cleans out degen. polys & unused verts, cleans out higher order polys by triangulation, meshes tris into tristrips, strips all normals, and applies texture matrix to uvs
+
+todo: fix redundant texture path reference
+
+BEFORE:
+
+21 total nodes (including 0 instances); 0 LODNodes.
+0 transforms; 0% of nodes have some render attribute.
+12 Geoms, with 12 GeomVertexDatas and 2 GeomVertexFormats, appear on 12 GeomNodes.
+281 vertices, 281 normals, 133 colors, 281 texture coordinates.
+GeomVertexData arrays occupy 16 KiB memory.
+GeomPrimitive arrays occupy 0.805 KiB memory.
+10 GeomVertexArrayDatas are redundant, wasting 1K.
+6 GeomPrimitive arrays are redundant, wasting 1K.
+188 triangles:
+  108 of these are on 20 tristrips (5.4 average tris per strip).
+  80 of these are independent triangles.
+4 textures, estimated minimum 504 KiB texture memory required.
+
+
+AFTER:
+
+21 total nodes (including 0 instances); 0 LODNodes.
+0 transforms; 0% of nodes have some render attribute.
+12 Geoms, with 12 GeomVertexDatas and 2 GeomVertexFormats, appear on 12 GeomNodes.
+231 vertices, 0 normals, 133 colors, 231 texture coordinates.
+GeomVertexData arrays occupy 10.5 KiB memory.
+GeomPrimitive arrays occupy 0.602 KiB memory.
+2 GeomVertexArrayDatas are redundant, wasting 1K.
+2 GeomPrimitive arrays are redundant, wasting 1K.
+152 triangles:
+  72 of these are on 13 tristrips (5.53846 average tris per strip).
+  80 of these are independent triangles.
+4 textures, estimated minimum 432 KiB texture memory required.
+
+==============================================================================================================================
+
+
+egg-trans reads an egg file and writes an essentially equivalent egg
+file to the standard output, or to the file specified with -o.  Some
+simple operations on the egg file are supported.
+
+Usage:
+  egg-trans [opts] -o output.egg input.egg
+  egg-trans [opts] input.egg >output.egg
+
+Options:
+  -noabs       Don't allow the input egg file to have absolute
+               pathnames.  If it does, abort with an error.  This option
+               is designed to help detect errors when populating or
+               building a standalone model tree, which should be
+               self-contained and include only relative pathnames.
+
+  -F           Flatten out transforms.
+
+  -t           Apply texture matrices to UV's.
+
+  -T           Collapse equivalent texture references.
+
+  -c           Clean out degenerate polygons and unused vertices.
+
+  -C           Clean out higher-order polygons by subdividing into
+               triangles.
+
+  -mesh        Mesh triangles into triangle strips.  This is mainly
+               useful as a tool to visualize the work that the mesher
+               will do, since triangles are automatically meshed
+               whenever an egg file is loaded.  Note that, unlike the
+               automatic meshing at load time, you are must ensure that
+               you do not start out with multiple triangles with
+               different attributes (e.g. texture) together in the same
+               group.
+
+  -N           Standardize and uniquify group names.
+
+  -pr path_replace
+               Sometimes references to other files (textures, external
+               references) are stored with a full path that is
+               appropriate for some other system, but does not exist
+               here.  This option may be used to specify how those
+               invalid paths map to correct paths.  Generally, this is
+               of the form 'orig_prefix=replacement_prefix', which
+               indicates a particular initial sequence of characters
+               that should be replaced with a new sequence; e.g.
+               '/c/home/models=/beta/fish'.  If the replacement prefix
+               does not begin with a slash, the file will then be
+               searched for along the search path specified by -pp.  You
+               may use standard filename matching characters ('*', '?',
+               etc.) in the original prefix, and '**' as a component by
+               itself stands for any number of components.
+
+               This option may be repeated as necessary; each file will
+               be tried against each specified method, in the order in
+               which they appear in the command line, until the file is
+               found.  If the file is not found, the last matching
+               prefix is used anyway.
+
+  -pp dirname  Adds the indicated directory name to the list of
+               directories to search for filenames referenced by the
+               source file.  This is used only for relative paths, or
+               for paths that are made relative by a -pr replacement
+               string that doesn't begin with a leading slash.  The
+               model-path is always implicitly searched anyway.
+
+  -ps path_store
+               Specifies the way an externally referenced file is to be
+               represented in the resulting output file.  This assumes
+               the named filename actually exists; see -pr to indicate
+               how to deal with external references that have bad
+               pathnames.  This option will not help you to find a
+               missing file, but simply controls how filenames are
+               represented in the output.
+
+               The option may be one of: rel, abs, rel_abs, strip, or
+               keep.  If either rel or rel_abs is specified, the files
+               are made relative to the directory specified by -pd.  The
+               default is rel.
+
+  -pd path_directory
+               Specifies the name of a directory to make paths relative
+               to, if '-ps rel' or '-ps rel_abs' is specified.  If this
+               is omitted, the directory name is taken from the name of
+               the output file.
+
+  -pc target_directory
+               Copies textures and other dependent files into the
+               indicated directory.  If a relative pathname is
+               specified, it is relative to the directory specified with
+               -pd, above.
+
+  -td dirname  Copy textures to the indicated directory.  The copy is
+               performed only if the destination file does not exist or
+               is older than the source file.
+
+  -te ext      Rename textures to have the indicated extension.  This
+               also automatically copies them to the new filename
+               (possibly in a different directory if -td is also
+               specified), and may implicitly convert to a different
+               image format according to the extension.
+
+  -tt type     Explicitly specifies the image format to convert textures
+               to when copying them via -td or -te.  Normally, this is
+               unnecessary as the image format can be determined by the
+               extension, but sometimes the extension is insufficient to
+               unambiguously specify an image type.
+
+  -delod dist  Eliminate LOD's by choosing the level that would be
+               appropriate for a camera at the indicated fixed distance
+               from each LOD.  Use -delod -1 to keep all the LOD's as
+               they are, which is the default.
+
+  -no          Strip all normals.
+
+  -np          Strip existing normals and redefine polygon normals.
+
+  -nv threshold
+               Strip existing normals and redefine vertex normals.
+               Consider an edge between adjacent polygons to be smooth
+               if the angle between them is less than threshold degrees.
+
+  -nn          Preserve normals exactly as they are.  This is the
+               default.
+
+  -tbn name    Compute tangent and binormal for the named texture
+               coordinate set(s).  The name may include wildcard
+               characters such as * and ?.  The normal must already
+               exist or have been computed via one of the above options.
+               The tangent and binormal are used to implement bump
+               mapping and related texture-based lighting effects.  This
+               option may be repeated as necessary to name multiple
+               texture coordinate sets.
+
+  -tbnall      Compute tangent and binormal for all texture coordinate
+               sets.  This is equivalent to -tbn "*".
+
+  -tbnauto     Compute tangent and binormal for all normal maps.
+
+  -TS sx[,sy,sz]
+               Scale the model uniformly by the given factor (if only
+               one number is given) or in each axis by sx, sy, sz (if
+               three numbers are given).
+
+  -TR x,y,z    Rotate the model x degrees about the x axis, then y
+               degrees about the y axis, and then z degrees about the z
+               axis.
+
+  -TA angle,x,y,z
+               Rotate the model angle degrees counterclockwise about the
+               given axis.
+
+  -TT x,y,z    Translate the model by the indicated amount.
+
+               All transformation options (-TS, -TR, -TA, -TT) are
+               cumulative and are applied in the order they are
+               encountered on the command line.
+
+  -o filename  Specify the filename to which the resulting egg file will
+               be written.  If this option is omitted, the egg file is
+               written to standard output.
+
+  -cs coordinate-system
+               Specify the coordinate system of the resulting egg file.
+               This may be one of 'y-up', 'z-up', 'y-up-left', or
+               'z-up-left'.  The default is the same coordinate system
+               as the input egg file.  If this is different from the
+               input egg file, a conversion will be performed.
+
+  -f           Force complete loading: load up the egg file along with
+               all of its external references.
+
+  -h           Display this help page.
+

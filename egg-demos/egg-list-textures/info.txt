@@ -1,0 +1,24 @@
+egg-list-textures reads an egg file and writes a list of the textures it
+references.  It is particularly useful for building up the textures.txa
+file used for egg-palettize, since the output format is crafted to be
+compatible with that file's input format.
+
+Usage:
+  egg-list-textures [opts] input.egg
+
+Options:
+  -noabs       Don't allow the input egg file to have absolute
+               pathnames.  If it does, abort with an error.  This option
+               is designed to help detect errors when populating or
+               building a standalone model tree, which should be
+               self-contained and include only relative pathnames.
+
+  -cs coordinate-system
+               Specify the coordinate system to operate in.  This may be
+               one of 'y-up', 'z-up', 'y-up-left', or 'z-up-left'.  The
+               default is the coordinate system of the input egg file.
+
+  -f           Force complete loading: load up the egg file along with
+               all of its external references.
+
+  -h           Display this help page.
