@@ -1,0 +1,120 @@
+<CoordinateSystem> { Y-Up }
+
+<Texture> 1 {
+  texture.png
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+
+<Texture> 2 {
+  texture-dim.png
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+
+<Group> seqPlane {
+  <Switch> { 1 }
+  <Scalar> fps { 1 }
+  <Group> plane1 {
+    <VertexPool> planeShape1.verts {
+      <Vertex> 0 {
+        -0.5 -0.5 -2.22044604925031e-16
+        <UV> {
+          0 0
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 1 {
+        -0.5 0.5 2.22044604925031e-16
+        <UV> {
+          0 1
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 2 {
+        0.5 -0.5 -2.22044604925031e-16
+        <UV> {
+          1 0
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 3 {
+        0.5 0.5 2.22044604925031e-16
+        <UV> {
+          1 1
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+    }
+    <Polygon> {
+      <Normal> { 0 0 1 }
+      <TRef> { 1 }
+      <VertexRef> { 0 2 3 1 <Ref> { planeShape1.verts } }
+    }
+  }
+  <Group> plane2 {
+    <VertexPool> planeShape2.verts {
+      <Vertex> 0 {
+        -0.5 -0.5 -2.22044604925031e-16
+        <UV> {
+          0 0
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 1 {
+        -0.5 0.5 2.22044604925031e-16
+        <UV> {
+          0 1
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 2 {
+        0.5 -0.5 -2.22044604925031e-16
+        <UV> {
+          1 0
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+      <Vertex> 3 {
+        0.5 0.5 2.22044604925031e-16
+        <UV> {
+          1 1
+          <Tangent> { 1 0 0 }
+          <Binormal> { 0 1 0 }
+        }
+        <Normal> { 0 0 1 }
+        <RGBA> { 1 1 1 1 }
+      }
+    }
+    <Polygon> {
+      <Normal> { 0 0 1 }
+      <TRef> { 2 }
+      <VertexRef> { 0 2 3 1 <Ref> { planeShape2.verts } }
+    }
+  }
+}
