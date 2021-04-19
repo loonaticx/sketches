@@ -7,7 +7,6 @@ from panda3d.egg import EggTextureCollection
 from panda3d.egg import EggFilenameNode
 from panda3d.egg import EggTexture
 import dupFinder
-#from panda3d.egg import EggObject
 
 """
   Egg Texture Organizer
@@ -18,13 +17,12 @@ import dupFinder
   Date: 11/25/2020
 """
 
-
 eggDir = os.getcwd()
 eggOutputDir = "output\\"
 errorImage = "./error.png"
 verboseList = False
 outputFile = True
-eggFiles = {} # egg filename, proposed filepath
+eggFiles = {}  # egg filename, proposed filepath
 texList = []
 
 for file in os.listdir(eggDir):
@@ -33,14 +31,6 @@ for file in os.listdir(eggDir):
             continue
         eggFiles[str(file)] = str(os.path.splitext(file)[0])
 
-# print(eggFiles)
-
-# Will be used to sort models accordingly [unused for now]
-# Should shorten the file name in the future so new folders can be made for each element
-modelPrefixList = {
-    "bugRoom": "bugroom_",
-    "tt_m_ara_est_house_": "house_"
-}
 
 def getTextureList(eggFile):
     texSet = set([])
@@ -50,30 +40,40 @@ def getTextureList(eggFile):
         texSet.add(child.getFilename().getFullpath())
     return texSet
 
-def cloneTextureDirs(textureList, model):
-    for texture in textureList:
-        modelDir = os.path.join(eggOutputDir, eggFiles[model])
-        if not Path(modelDir).is_dir():
-            print("Creating directory for %s" % eggFiles[model])
-            os.makedirs(modelDir)
 
+def cloneTextureDirs(textureList, model):
+    modelDir = os.path.join(eggOutputDir, eggFiles[model])
+    if not Path(modelDir).is_dir():
+        print("Creating directory for %s" % eggFiles[model])
+        os.makedirs(modelDir)
+        modelpath = Path(model)
+        modelcheck = Path(os.path.join(eggOutputDir, eggFiles[model], os.path.basename(
+            modelpath)))
+        shutil.copyfile(model, modelcheck)
+
+    for texture in textureList:
         filepath = Path(texture)
-        filecheck = Path(os.path.join(eggOutputDir, eggFiles[model], os.path.basename(filepath))) # Check if texture already exists
+        filecheck = Path(os.path.join(eggOutputDir, eggFiles[model], os.path.basename(
+            filepath)))  # Check if texture already exists
+
+        fileroot = Path(os.path.join(eggOutputDir, eggFiles[model]))
 
         if filecheck.is_file():
             # print("Warning: %s already exists!" % filecheck)
             continue
 
-        if not filepath.is_file(): # Texture does not exist
+        if not filepath.is_file():  # Texture does not exist
             print("Warning: %s does not exist!" % filepath)
             shutil.copyfile(errorImage, filecheck)
             continue
 
+        print(eggFiles[model])
         shutil.copyfile(filepath, filecheck)
 
-#if outputFile:
+# if outputFile:
 #    if path.exists('texList.txt'):
 #        os.remove('texList.txt')
+
 
 with open('texList.txt', 'w+') as fp:
     pass
