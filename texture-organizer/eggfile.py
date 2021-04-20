@@ -28,7 +28,7 @@ texList = []
 for file in os.listdir(eggDir):
     if os.path.isfile(os.path.join(eggDir, file)):
         if not file.endswith(".egg"):
-            continue
+            continue # We only want egg files
         eggFiles[str(file)] = str(os.path.splitext(file)[0])
 
 
@@ -37,6 +37,8 @@ def getTextureList(eggFile):
     for child in eggFile.getChildren():
         if not isinstance(child, EggTexture):
             continue
+            # todo: could returning texset here be more optimal?
+            # Textures are only referenced on top after the comment, shouldnt be anywhere else
         texSet.add(child.getFilename().getFullpath())
     return texSet
 
@@ -46,10 +48,12 @@ def cloneTextureDirs(textureList, model):
     if not Path(modelDir).is_dir():
         print("Creating directory for %s" % eggFiles[model])
         os.makedirs(modelDir)
+        # Copy the model file to the new directory
+        # todo: make this an option/bool
         modelpath = Path(model)
-        modelcheck = Path(os.path.join(eggOutputDir, eggFiles[model], os.path.basename(
+        outputModelDir = Path(os.path.join(eggOutputDir, eggFiles[model], os.path.basename(
             modelpath)))
-        shutil.copyfile(model, modelcheck)
+        shutil.copyfile(model, outputModelDir)
 
     for texture in textureList:
         filepath = Path(texture)
@@ -60,14 +64,14 @@ def cloneTextureDirs(textureList, model):
 
         if filecheck.is_file():
             # print("Warning: %s already exists!" % filecheck)
+            # Should only be triggered if script is ran twice
             continue
 
-        if not filepath.is_file():  # Texture does not exist
+        if not filepath.is_file():  # Texture does not exist in maps folder
             print("Warning: %s does not exist!" % filepath)
             shutil.copyfile(errorImage, filecheck)
             continue
 
-        print(eggFiles[model])
         shutil.copyfile(filepath, filecheck)
 
 # if outputFile:
