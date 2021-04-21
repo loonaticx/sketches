@@ -1,0 +1,58 @@
+<CoordinateSystem> { Y-Up }
+
+<Texture> lambert2SG {
+  GoofyStadium_fence1.png
+  <Scalar> wrapu { border_color }
+  <Scalar> wrapv { border_color }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+<Group> pPlane1 {
+  <VertexPool> pPlaneShape1.verts {
+    <Vertex> 0 {
+      -2.36481328962502 0.011310564116197 -2.22044604925031e-16
+      <UV> {
+        0 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 1 {
+      -2.36481328962502 2.25819033855699 7.75770458734468e-16
+      <UV> {
+        0 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 2 {
+      2.36481328962502 0.011310564116197 -2.22044604925031e-16
+      <UV> {
+        1 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 3 {
+      2.36481328962502 2.25819033855699 7.75770458734468e-16
+      <UV> {
+        1 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <TRef> { lambert2SG }
+    <VertexRef> { 0 2 3 1 <Ref> { pPlaneShape1.verts } }
+  }
+}
