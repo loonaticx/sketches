@@ -22,7 +22,7 @@
   <Scalar> envtype { modulate }
 }
 <Texture> desat_sleeve_1 {
-  "phase_3/maps/desat_sleeve_1.png"
+  "desat_sleeve_1.png"
   <Scalar> format { rgb }
   <Scalar> wrapu { repeat }
   <Scalar> wrapv { repeat }
@@ -31,7 +31,7 @@
   <Scalar> envtype { modulate }
 }
 <Texture> desat_skirt_1 {
-  "phase_3/maps/desat_skirt_1.png"
+  "desat_skirt_1.png"
   <Scalar> format { rgb }
   <Scalar> wrapu { repeat }
   <Scalar> wrapv { repeat }
@@ -40,7 +40,7 @@
   <Scalar> envtype { modulate }
 }
 <Texture> desat_shirt_1 {
-  "phase_3/maps/desat_shirt_1.png"
+  "desat_shirt_1.png"
   <Scalar> format { rgb }
   <Scalar> wrapu { repeat }
   <Scalar> wrapv { repeat }
