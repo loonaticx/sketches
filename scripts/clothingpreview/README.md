@@ -8,23 +8,25 @@ If you actually use this script, it might yell at you for missing textures. They
 
 ## Controls
 
-s = Take screenshot
-o = toggle oobe/free camera
-r = reload loaded textures
-1 = toggle shirt
-2 = toggle bottoms
-mouse wheel up = zoom in
-mouse wheel down = zoom out
-mouse3 = reset zoom
-left arrow = rotate negative heading
-right arrow = rotate positive heading
-up arrow = rotate positive pitch
-down arrow = rotate negative pitch
+Key | Usage
+------------ | -------------
+s | Take screenshot
+o | toggle oobe/free camera
+r | reload loaded textures
+e | reset rotation
+1 | toggle shirt
+2 | toggle bottoms
+3 | load dogs body
+4 | load dogm body
+5 | load dogl body
+mouse wheel up | zoom in
+mouse wheel down | zoom out
+mouse3 | reset zoom
+left arrow | rotate negative heading
+right arrow | rotate positive heading
+up arrow | rotate positive pitch
+down arrow | rotate negative pitch
 
 ## Todo
 
-Torso only frame (better),
-Bottom only frame too (better),
-m and f body types (specifically skirts),
-different body types (fat, skinny)
-Add onscreen text that displays the offset (camers zoom, clothing rotation, etc.) <-- will be hidden in screenshots
+- Add onscreen text that displays the offset (camers zoom, clothing rotation, etc.) <-- will be hidden in screenshots
