@@ -12,6 +12,7 @@ Hi there. If you are not Loonatic and stumbled upon this file, it'd probably be 
 
 - maybe make scripts for certain demos like texture / uv clamping
     - texture card p3d api
+    - bam flattening
 
 - maybe MAYBE figure out 3d texture/overlay stuff
 

@@ -23,11 +23,15 @@ Controls:
 s = Take screenshot
 o = toggle oobe/free camera
 r = reload loaded textures
+e = reset rotation
 1 = toggle shirt
 2 = toggle bottoms
+3 = load dogs body
+4 = load dogm body
+5 = load dogl body
 mouse wheel up = zoom in
 mouse wheel down = zoom out
-mouse3 = reset zoom
+mouse3(middle mouse click) = reset zoom
 left arrow = rotate negative heading
 right arrow = rotate positive heading
 up arrow = rotate positive pitch
@@ -37,10 +41,6 @@ down arrow = rotate negative pitch
 
 """
 Todo:
-Torso only frame (better),
-Bottom only frame too (better),
-m and f body types (specifically skirts),
-different body types (fat, skinny)
 Add onscreen text that displays the offset (camers zoom, clothing rotation, etc.) <-- will be hidden in screenshots
 """
 
@@ -57,9 +57,16 @@ class previewClothing(ShowBase):
         self.loadedTextures = [None, None, None]
         self.shirtVisible = True
         self.bottomsVisible = True
+        self.torso = None
+        self.type = 'm'
+        self.botType = 'shorts' # just shorts/skirt
         self.defaultCamPos = base.cam.getPos()
         base.camera.hide()
         self.i = 1
+        self.defaultH = 190 # todo: hotkey to reset all transformations
+        self.currentH = self.defaultH
+        self.defaultP = 0
+        self.currentP = self.defaultP
         
         # Just in case we have these enabled in the config...
         base.setFrameRateMeter(False)
@@ -69,6 +76,7 @@ class previewClothing(ShowBase):
 
         self.loadBody()
         self.loadGUI()
+        
         """
         If you want to change the default outfit texture (not desat), you can either
         change the texture path of the egg model(s) itself, or, alternatively, you can
@@ -80,41 +88,78 @@ class previewClothing(ShowBase):
         self.accept('s-up', self.saveScreenshot)
         self.accept('o', base.oobe)
         self.accept('r', self.reloadTextures)
-        self.accept('wheel_up', self.incrementCam)
-        self.accept('wheel_down', self.decrementCam)
+        self.accept('e', self.defaultRotation)
+        self.accept('wheel_up', self.zoomCamera, [0.1])
+        self.accept('wheel_down', self.zoomCamera, [-0.1])
         self.accept('mouse2', self.defaultCam)
-        self.accept('arrow_left', self.decrementH)
-        self.accept('arrow_left-repeat', self.decrementH)
-        self.accept('arrow_right', self.incrementH)
-        self.accept('arrow_right-repeat', self.incrementH)
-        self.accept('arrow_up', self.incrementP)
-        self.accept('arrow_up-repeat', self.incrementP)
-        self.accept('arrow_down', self.decrementP)
-        self.accept('arrow_down-repeat', self.decrementP)
+        self.accept('arrow_left', self.rotateClothingH, [-5])
+        self.accept('arrow_left-repeat', self.rotateClothingH, [-5])
+        self.accept('arrow_right', self.rotateClothingH, [5])
+        self.accept('arrow_right-repeat', self.rotateClothingH, [5])
+        self.accept('arrow_up', self.rotateClothingP, [5])
+        self.accept('arrow_up-repeat', self.rotateClothingP, [5])
+        self.accept('arrow_down', self.rotateClothingP, [-5])
+        self.accept('arrow_down-repeat', self.rotateClothingP, [-5])
         self.accept('1', self.toggleShirt)
         self.accept('2', self.toggleBottoms)
+        self.accept('3', self.loadBody, ['s', self.botType])
+        self.accept('4', self.loadBody, ['m', self.botType])
+        self.accept('5', self.loadBody, ['l', self.botType])
         #self.accept('b', self.torso.showTightBounds)
 
        
     """
-    ("tt_a_chr_dgX_shorts_torso_1000.egg")
+    ("tt_a_chr_dgX_Y_torso_1000.egg")
     X = s, m, l
+    Y = shorts, skirt
     """
-    def loadBody(self): # todo: args decide what body type to use
-        torsoModel = loader.loadModel("tt_a_chr_dgm_shorts_torso_1000.egg") # can rename this later
+    def loadBody(self, type='m', gender='shorts'): # default: dogM_shorts
+        self.clearBody()
+        self.type = type
+        self.botType = gender
+        torsoModel = loader.loadModel("tt_a_chr_dg{}_{}_torso_1000.egg".format(type, gender)) # can rename this later
         self.torso = torsoModel.getChild(0)
         self.torso.reparentTo(render)
-               
+        #print(self.torso)
+        
+        
         #torsoModel.hide()
         for node in self.torso.getChildren():
             if (node.getName() != 'torso-top')\
             and (node.getName() != "torso-bot")\
             and (node.getName() != 'sleeves'):
                 node.stash()
-
-        self.torso.setPosHprScale(0.00, 4.69, -0.235, 190, 0.00, 0.00, 1.00, 1.00, 1.00)
+        # note: Z-up
+        self.torso.setPos(0.00, 4.69, -0.235)
+        self.torso.setH(self.currentH)
+        self.torso.setP(self.currentP)
+        if(type == 'l'):
+            self.torso.setPos(self.torso.getX(), self.torso.getY()+ 0.91, self.torso.getZ() - 0.46)
         self.torso.setTwoSided(True)
-    
+        #print(self.topTex)
+        if self.topTex is not None:
+            self.torso.find('**/torso-top').setTexture(self.loadedTextures[0], 1)
+        if self.sleeveTex is not None:
+            self.torso.find('**/sleeves').setTexture(self.loadedTextures[1], 1)
+        if self.bottomTex is not None:
+            self.torso.find('**/torso-bot').setTexture(self.loadedTextures[2], 1)
+        
+    def clearBody(self):
+        if self.torso is not None:
+            self.torso.removeNode()
+            self.torso = None
+
+ 
+    def changeBotType(self):
+        if self.botType == 'shorts':
+            self.botType = 'skirt'
+        elif self.botType == 'skirt':
+            self.botType = 'shorts'
+        else:
+            self.botType = 'shorts' # Should never hit this but have a failsafe
+        self.loadBody(self.type, self.botType)
+
+ 
     def loadGUI(self):
         # Todo: figure out how to reposition buttons when window changes size
         #guiFrame = DirectFrame(frameColor=(0, 0, 0, 1),
@@ -126,6 +171,15 @@ class previewClothing(ShowBase):
                  scale=0.05, pos=(-1.6, 0, -0.5), parent=base.aspect2d, command=self.openSleeves)
         self.shortsButton = DirectButton(text=("Change Bottoms"),
                  scale=0.05, pos=(-1.6, 0, -0.6), parent=base.aspect2d, command=self.openBottom)
+        
+        self.loadSButton = DirectButton(text=("dogs"),
+                 scale=0.05, pos=(1.6, 0, -0.4), parent=base.aspect2d, command=self.loadBody, extraArgs=['s'])
+        self.loadMButton = DirectButton(text=("dogm"),
+                 scale=0.05, pos=(1.6, 0, -0.5), parent=base.aspect2d, command=self.loadBody, extraArgs=['m'])
+        self.loadLButton = DirectButton(text=("dogl"),
+                 scale=0.05, pos=(1.6, 0, -0.6), parent=base.aspect2d, command=self.loadBody, extraArgs=['l'])
+        self.changeGenderButton = DirectButton(text=("Change gender"),
+                 scale=0.05, pos=(1.6, 0, -0.7), parent=base.aspect2d, command=self.changeBotType)
         
     def saveScreenshot(self):
         # intent: Image number would increment if the file already exists just so it doesn't overwrite
@@ -146,6 +200,8 @@ class previewClothing(ShowBase):
     
     # temporary until i have a better way to do this lol    
     def toggleShirt(self):
+        if self.torso is None:
+            return
         if (self.shirtVisible):
             self.torso.find('**/torso-top').hide()
             self.torso.find('**/sleeves').hide()
@@ -156,6 +212,8 @@ class previewClothing(ShowBase):
             self.shirtVisible = True
     
     def toggleBottoms(self):
+        if self.torso is None:
+            return
         if (self.bottomsVisible):
             self.torso.find('**/torso-bot').hide()
             self.bottomsVisible = False
@@ -165,35 +223,26 @@ class previewClothing(ShowBase):
     
     
     # Rotate clothing
-    
-    def incrementH(self):
-        self.rotateClothingH(5)
-    
-    def decrementH(self):
-        self.rotateClothingH(-5)
-    
-    def rotateClothingH(self, value):
-        self.torso.setH(self.torso.getH() + value)
         
-    def incrementP(self):
-        self.rotateClothingP(5)
-    
-    def decrementP(self):
-        self.rotateClothingP(-5)
+    def rotateClothingH(self, value):
+        self.currentH = self.torso.getH() + value
+        self.torso.setH(self.currentH)
+        
     
     def rotateClothingP(self, value):
-        self.torso.setP(self.torso.getP() + value)
+        self.currentP = self.torso.getP() + value
+        self.torso.setP(self.currentP)
+        
+    def defaultRotation(self):
+        self.currentH = self.defaultH
+        self.torso.setH(self.currentH)
+        self.currentP = self.defaultP
+        self.torso.setP(self.currentP)
         
     # Camera Modifiers
     def defaultCam(self):
         base.cam.setPos(self.defaultCamPos)
-    
-    def incrementCam(self):
-        self.zoomCamera(0.1)
-    
-    def decrementCam(self):
-        self.zoomCamera(-0.1)
-    
+        
     def zoomCamera(self, value):
         base.cam.setPos(base.cam.getX(), base.cam.getY() + value, base.cam.getZ())
     ###
