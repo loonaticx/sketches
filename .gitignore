@@ -1,2 +1,6 @@
 .history
 *.pyc
+.mayaSwatches
+*_temp*
+Layer *.png
+output*.png
