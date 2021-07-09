@@ -1,8 +1,7 @@
 from direct.showbase.ShowBase import ShowBase
 from pathlib import Path
 from tkinter.filedialog import askopenfilename
-from panda3d.core import Filename
-from panda3d.core import GraphicsOutput
+from panda3d.core import Filename, GraphicsOutput, WindowProperties, Texture, GraphicsPipe, FrameBufferProperties
 from direct.gui.DirectGui import *
 import sys, os
 
@@ -67,23 +66,23 @@ class previewClothing(ShowBase):
         self.currentH = self.defaultH
         self.defaultP = 0
         self.currentP = self.defaultP
-        
+
         # Just in case we have these enabled in the config...
         base.setFrameRateMeter(False)
         base.setSceneGraphAnalyzerMeter(False)
-        
+
         base.disableMouse()
 
         self.loadBody()
         self.loadGUI()
-        
+
         """
         If you want to change the default outfit texture (not desat), you can either
         change the texture path of the egg model(s) itself, or, alternatively, you can
         directly call to load specific textures, e.g.:
             self.loadTopTexture("path/to/texture.png")
         """
-       
+
         self.accept('s', self.aspect2d.hide) # Hacky b/c hiding and showing in same method no work
         self.accept('s-up', self.saveScreenshot)
         self.accept('o', base.oobe)
@@ -121,8 +120,8 @@ class previewClothing(ShowBase):
         self.torso = torsoModel.getChild(0)
         self.torso.reparentTo(render)
         #print(self.torso)
-        
-        
+
+
         #torsoModel.hide()
         for node in self.torso.getChildren():
             if (node.getName() != 'torso-top')\
@@ -143,13 +142,13 @@ class previewClothing(ShowBase):
             self.torso.find('**/sleeves').setTexture(self.loadedTextures[1], 1)
         if self.bottomTex is not None:
             self.torso.find('**/torso-bot').setTexture(self.loadedTextures[2], 1)
-        
+
     def clearBody(self):
         if self.torso is not None:
             self.torso.removeNode()
             self.torso = None
 
- 
+
     def changeBotType(self):
         if self.botType == 'shorts':
             self.botType = 'skirt'
@@ -159,46 +158,46 @@ class previewClothing(ShowBase):
             self.botType = 'shorts' # Should never hit this but have a failsafe
         self.loadBody(self.type, self.botType)
 
- 
+
     def loadGUI(self):
         # Todo: figure out how to reposition buttons when window changes size
         #guiFrame = DirectFrame(frameColor=(0, 0, 0, 1),
         #              frameSize=(-1, 1, -1, 1),
         #              pos=(1, -1, -1))
         self.topButton = DirectButton(text=("Change Top"),
-                 scale=0.05, pos=(-1.6, 0, -0.4), parent=base.aspect2d, command=self.openTop)
+                 scale=0.05, pos=(-1.6, 0, -0.4), command=self.openTop)
         self.sleeveButton = DirectButton(text=("Change Sleeve"),
-                 scale=0.05, pos=(-1.6, 0, -0.5), parent=base.aspect2d, command=self.openSleeves)
+                 scale=0.05, pos=(-1.6, 0, -0.5), command=self.openSleeves)
         self.shortsButton = DirectButton(text=("Change Bottoms"),
-                 scale=0.05, pos=(-1.6, 0, -0.6), parent=base.aspect2d, command=self.openBottom)
-        
+                 scale=0.05, pos=(-1.6, 0, -0.6), command=self.openBottom)
+
         self.loadSButton = DirectButton(text=("dogs"),
-                 scale=0.05, pos=(1.6, 0, -0.4), parent=base.aspect2d, command=self.loadBody, extraArgs=['s'])
+                 scale=0.05, pos=(1.6, 0, -0.4),  command=self.loadBody, extraArgs=['s'])
         self.loadMButton = DirectButton(text=("dogm"),
-                 scale=0.05, pos=(1.6, 0, -0.5), parent=base.aspect2d, command=self.loadBody, extraArgs=['m'])
+                 scale=0.05, pos=(1.6, 0, -0.5),  command=self.loadBody, extraArgs=['m'])
         self.loadLButton = DirectButton(text=("dogl"),
-                 scale=0.05, pos=(1.6, 0, -0.6), parent=base.aspect2d, command=self.loadBody, extraArgs=['l'])
+                 scale=0.05, pos=(1.6, 0, -0.6),  command=self.loadBody, extraArgs=['l'])
         self.changeGenderButton = DirectButton(text=("Change gender"),
-                 scale=0.05, pos=(1.6, 0, -0.7), parent=base.aspect2d, command=self.changeBotType)
-        
+                 scale=0.05, pos=(1.6, 0, -0.7),  command=self.changeBotType)
+
     def saveScreenshot(self):
         # intent: Image number would increment if the file already exists just so it doesn't overwrite
         self.newfileName = self.fileName
         if not (os.path.isfile(self.newfileName)): # wip
             self.newfileName = self.fileName+str(self.i)
             self.i +=1
-        
+
         filename = self.newfileName +self.fileFormat
         base.win.saveScreenshot(Filename(filename))
         self.aspect2d.show()
         print("Screenshot saved! {}".format(filename))
-        
+
 
     def reloadTextures(self):
         for tex in self.loadedTextures:
             if tex: tex.reload()
-    
-    # temporary until i have a better way to do this lol    
+
+    # temporary until i have a better way to do this lol
     def toggleShirt(self):
         if self.torso is None:
             return
@@ -210,7 +209,7 @@ class previewClothing(ShowBase):
             self.torso.find('**/torso-top').show()
             self.torso.find('**/sleeves').show()
             self.shirtVisible = True
-    
+
     def toggleBottoms(self):
         if self.torso is None:
             return
@@ -220,33 +219,33 @@ class previewClothing(ShowBase):
         else:
             self.torso.find('**/torso-bot').show()
             self.bottomsVisible = True
-    
-    
+
+
     # Rotate clothing
-        
+
     def rotateClothingH(self, value):
         self.currentH = self.torso.getH() + value
         self.torso.setH(self.currentH)
-        
-    
+
+
     def rotateClothingP(self, value):
         self.currentP = self.torso.getP() + value
         self.torso.setP(self.currentP)
-        
+
     def defaultRotation(self):
         self.currentH = self.defaultH
         self.torso.setH(self.currentH)
         self.currentP = self.defaultP
         self.torso.setP(self.currentP)
-        
+
     # Camera Modifiers
     def defaultCam(self):
         base.cam.setPos(self.defaultCamPos)
-        
+
     def zoomCamera(self, value):
         base.cam.setPos(base.cam.getX(), base.cam.getY() + value, base.cam.getZ())
     ###
-        
+
     def browseForImage(self):
         path = Path(askopenfilename(filetypes = (
             ("Image Files", "*.jpg;*.jpeg;*.png;*.psd;*.tga"),
@@ -301,8 +300,7 @@ class previewClothing(ShowBase):
             self.loadBottomTexture(filename)
         except:
             print(str(filename) + " could not be loaded!")
-        
+
 
 app = previewClothing()
 app.run()
-    
