@@ -1,3 +1,4 @@
+```
 #   This attribute indicates that the child nodes of this group
 #   represent a series of animation frames that should be
 #   consecutively displayed.  In the absence of an "fps" scalar for
@@ -16,9 +17,9 @@ egg-object-type-seq10           <Switch> { 1 } <Scalar> fps { 10 }
 egg-object-type-seq12           <Switch> { 1 } <Scalar> fps { 12 }
 egg-object-type-seq24           <Switch> { 1 } <Scalar> fps { 24 }
 
-
+```
 ----------------------------
 
 All of the child nodes within a seq-defined group node will take turns being displayed.
 
-Also refer to egg-seq-2d for another example.
+*Also refer to egg-seq-2d for another example.*

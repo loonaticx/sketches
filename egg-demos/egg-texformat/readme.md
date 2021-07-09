@@ -1,3 +1,4 @@
+```
 <Scalar> format { format-definition }
 
     This defines the load format of the image file.  The
@@ -26,3 +27,4 @@
     The number of components of the image file should match the format
     specified; if it does not, the egg loader will attempt to provide
     the closest match that does.
+```

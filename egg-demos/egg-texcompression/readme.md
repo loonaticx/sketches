@@ -1,3 +1,4 @@
+```
 <Scalar> compression { compression-mode }
 
 Defines an explicit control over the real-time compression mode
@@ -16,3 +17,4 @@ setting of the config variable; if it is "ON", texture compression
 is explicitly on, and a default compression algorithm supported by
 the driver is selected.  If any of the other options, it names the
 specific compression algorithm to be used.
+```

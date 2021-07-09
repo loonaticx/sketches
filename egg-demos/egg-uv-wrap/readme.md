@@ -1,3 +1,4 @@
+```
 <Scalar> wrap { repeat-definition }
 <Scalar> wrapu { repeat-definition }
 <Scalar> wrapv { repeat-definition }
@@ -20,5 +21,6 @@ The full list is:
   MIRROR
   MIRROR_ONCE
   BORDER_COLOR
+```
 
 https://docs.panda3d.org/1.10/python/programming/texturing/texture-wrap-modes
