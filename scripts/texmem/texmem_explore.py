@@ -2,8 +2,6 @@ from direct.tkwidgets.MemoryExplorer import MemoryExplorer
 from direct.showbase.ShowBase import ShowBase
 from pathlib import Path
 from tkinter.filedialog import askopenfilename
-from panda3d.core import Filename
-from panda3d.core import GraphicsOutput
 from direct.gui.DirectGui import *
 import sys, os
 
