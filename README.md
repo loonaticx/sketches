@@ -6,7 +6,7 @@ This repository is a personal collection of random scripts, demos, and other thi
 
 I use this repository to study Panda3D and currently computer graphics techniques. That being said, I try to create write-ups and demos for some of the various tools provided here. If you find use for any of these tools, feel free to use them. *They're public for a reason.* Ultimately, I am further researching ways to optimize the most out of rendering scenes & models.
 
-I aim to publish & migrate these write-ups to my [personal website](https://loonatic.pro/courses) eventually.
+I aim to publish & migrate these write-ups to my [personal website](https://loonatic.pro/tutorials) eventually.
 
 ## What's in the box?
 
