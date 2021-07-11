@@ -18,7 +18,9 @@ Panda's Texture Memory Viewer application can be a bit buggy. The program may cr
 # Usage
 
 Before running ``run_explore.bat``, configure ``DEV_P3D`` to point to a directory with Toontown's resources (phase folders, extracted)
-## Controls
+
+You do not need to configure ``DEV_P3D`` for ``run_demo.bat``
+## Explore Controls
 
 Key | Usage
 ------------ | -------------
@@ -29,6 +31,17 @@ a | Output info about the rendered scene
 r | Reset camera position
 c | Clear the loaded scene
 t | Toggle textures
+
+## Demo Controls
+
+**WARNING: Make sure your tex mem viewer window size is large enough for the following methods or it will crash :(**
+
+Key | Usage
+------------ | -------------
+1 | Import a 32x32 texture into the scene & replace all nodes' textures with it.
+2 | Import a 2048x2048 texture into the scene and replace one ring's texture with it.
+3 | Import a 4096x4096 texture into the scene and replace one ring's texture with it.
+a | Output info about the rendered scene
 
 # Todo
 

@@ -24,7 +24,7 @@ class driver(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         self.base = ShowBase
-        base.cam.setPos(0, -5, 1)
+        base.cam.setPos(0, -7, 1)
 
         modelFile = 'demo_model/demo_rings.egg'
         self.modelDemo = loader.loadModel(modelFile)
@@ -34,6 +34,7 @@ class driver(ShowBase):
         self.accept('1', self.modifyTextures)
         self.accept('2', self.modifyTexture2048)
         self.accept('3', self.modifyTexture4096)
+        self.accept('a', render.analyze)
 
 
         """
@@ -51,7 +52,6 @@ class driver(ShowBase):
 
     def modifyTextures(self):
         for node in self.modelDemo.getChildren():
-            print(node)
             # 32 x 32 texture, will take up 3.0 kb of texture memory. (Uncompressed)
             node.setTexture(loader.loadTexture('demo_model/texture3.jpg'), 1)
 

@@ -1,7 +1,6 @@
 # Loonatic's Sketchbook Repository
 
 ## What's this?
----
 
 This repository is a personal collection of random scripts, demos, and other things I've made to help assist me in various Panda3D/Toontown tasks. It's also my public sandbox repo for experimenting around with Panda.
 
@@ -10,7 +9,6 @@ I use this repository to study Panda3D and currently computer graphics technique
 I aim to publish & migrate these write-ups to my [personal website](https://loonatic.pro/courses) eventually.
 
 ## What's in the box?
----
 
 Since this is an experimental repository, everything listed here is subject to change at any time.
 
@@ -57,7 +55,6 @@ Since this is an experimental repository, everything listed here is subject to c
 * Explore models with texture memory viewer
 
 
-----
 
 ## Retired Sketches
 
@@ -67,7 +64,6 @@ Some sketches turn out to evolve into complete pieces. I plan to retire sketches
 Script to build an organized version of the TTO asset pipeline (texture end)
 [**Moved Here**](https://github.com/P3DCAT/SpotifyTextureOrganizer)
 
-----
 
 ## Useful Links
 https://docs.panda3d.org/1.10/python/glossary
