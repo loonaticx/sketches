@@ -41,12 +41,6 @@ class driver(ShowBase):
         self.accept('r', self.resetCam)
         self.accept('c', self.clearScene)
         self.accept('t', base.toggleTexture)
-        self.accept('b', base.toggleBackface)
-
-
-        self.accept('i', self.sphere)
-        self.accept('o', self.cube)
-
 
 
     def loadGUI(self):
@@ -90,12 +84,6 @@ class driver(ShowBase):
             self.model.removeNode()
             self.model = None
 
-
-    def sphere(self):
-        base.saveSphereMap(size=1024)
-
-    def cube(self):
-        base.saveCubeMap(size=1024)
 
 app = driver()
 app.run()
