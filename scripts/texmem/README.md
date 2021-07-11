@@ -1,8 +1,15 @@
 # Texture Memory Viewer Demo
+![Demo Image](./doc/img/texmem_1.png)
 
-``texmem_explore`` was my experimental script & includes a bunch of junk that's currently not related to texmem. I will clean it up later.
+## [*For a detailed & comprehensive guide on utilizing the texture memory viewer tool, click here.*](./doc/README.md)
 
-todo: add cool pictures and explanations and stuff
+There are two python scripts provided here. ``texmem_demo`` is a **demo** and ``texmem_explore`` is a **utility.**
+
+- Run ``texmem_demo`` to see a demonstration of Panda's Texture Memory Viewer utility.
+    - If you are a novice or have little/no experience in Panda3D development, I *strongly* recommend [starting here first.](./doc/README.md)
+
+- Run ``texmem_explore`` to inspect BAM/EGG files with the utility.
+
 
 # Caveats
 
@@ -10,7 +17,7 @@ Panda's Texture Memory Viewer application can be a bit buggy. The program may cr
 
 # Usage
 
-Before running ``run.bat``, configure ``DEV_P3D`` to point to a directory with Toontown's resources (phase folders, extracted)
+Before running ``run_explore.bat``, configure ``DEV_P3D`` to point to a directory with Toontown's resources (phase folders, extracted)
 ## Controls
 
 Key | Usage

@@ -6,7 +6,6 @@ Hi there. If you are not Loonatic and stumbled upon this file, it'd probably be 
 
 - Is it possible to recreate the tool that Disney used to separate the different layers (model+vertex color only as one layer, actual texture on another.)
 
-- epic showbase demo w/ cube & sphere maps
 
 - epic demo toggling stuff like toggleShowVertices, toggleBackface, ....
 
@@ -22,3 +21,14 @@ Hi there. If you are not Loonatic and stumbled upon this file, it'd probably be 
         base.win.saveScreenshot("1.png")
 ```
 
+
+
+---
+
+script to allow multiple models to be loaded in, use keys to alternate between the different models (intended to see any node differences between two identical-looking models
+ex: ttc_original, ttc_mod_v1, ttc_mod_v2
+allow for typical render.analyze, but also have the ability to show hidden nodes & what directions they are facing
+
+---
+
+pstats stuff, eventually.
