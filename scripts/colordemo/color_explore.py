@@ -5,7 +5,6 @@ from tkinter.filedialog import askopenfilename
 from direct.gui.DirectGui import *
 import sys, os
 
-from direct.showutil.TexMemWatcher import TexMemWatcher
 from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'model-path $DEV_P3D')
 
@@ -15,7 +14,7 @@ loadPrcFileData('', 'model-path $DEV_P3D')
 import tkinter as tk
 root = tk.Tk()
 root.withdraw()
-
+# TLDR: setColorScale = vertex painting, setColor = no vertex painting
 class driver(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
@@ -23,7 +22,7 @@ class driver(ShowBase):
         self.model = None
         self.defaultCamPos = base.cam.getPos()
 
-        self.colorScale = [0] # default we will use setColor
+        self.colorScale = [1] # default we will use setColorScale
 
         self.colorR = 1
         self.colorG = 1
