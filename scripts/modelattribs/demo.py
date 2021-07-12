@@ -4,6 +4,7 @@ from tkinter.filedialog import askopenfilename
 from panda3d.core import Filename
 from panda3d.core import GraphicsOutput
 from panda3d.core import CullFaceAttrib
+from panda3d.core import NodePath
 from direct.gui.DirectGui import *
 import sys, os
 
@@ -17,16 +18,14 @@ import tkinter as tk
 root = tk.Tk()
 root.withdraw()
 
-# https://docs.panda3d.org/1.10/python/reference/direct.showutil.TexMemWatcher#module-direct.showutil.TexMemWatcher
-
 class generate(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         self.base = ShowBase
         self.model = None
         self.lastModelPath = ""
-        self.collisionsToggled = False
-        self.renderCollisionsToggled = False
+        self.collisionsEnabled = False
+        self.collisionsExist = False
         self.SGMeterToggled = False
         self.tightboundsToggled = False
         self.boundsToggled = False
@@ -34,6 +33,14 @@ class generate(ShowBase):
         self.vertexPaintingToggled = False
         self.flatteningEnabled = False
         self.occludersEnabled = False
+        self.occluderExist = False
+        self.modelNodesEnabled = False
+        self.modelNodesExist = False
+        self.XYZAxis = loader.loadModel("models/misc/xyzAxis.bam")
+        self.showNode = NodePath()
+
+        self.xyz = None
+
 
         # Todo later, might do this in a different script
         #self.bloomEnabled = False
@@ -62,8 +69,9 @@ class generate(ShowBase):
         self.accept('5', base.toggleBackface)
         self.accept('6', self.toggleFrontfaceCulling)
         #self.accept('7', self.toggleTightBounds) # todo: fix
-        self.accept('7', self.toggleRenderCollisions)
-        self.accept('o', self.toggleOccluders)
+        self.accept('7', self.toggleCollisionNodes)
+        self.accept('o', self.toggleOccluderNodes)
+        self.accept('p', self.toggleModelNodes)
 
 
     def enableFlatten(self):
@@ -123,6 +131,9 @@ class generate(ShowBase):
             self.ignore('9')
             self.ignore('0')
             self.flatteningEnabled = False
+        if self.xyz is not None:
+            self.xyz.removeNode()
+            self.xyz = None
 
     def toggleVertexPainting(self):
         if not self.vertexPaintingToggled:
@@ -152,33 +163,62 @@ class generate(ShowBase):
                 node.hideBounds()
             self.tightboundsToggled = self.boundsToggled = False
 
-    def toggleRenderCollisions(self):
-        if not self.renderCollisionsToggled:
-            for node in render.findAllMatches('**/+CollisionNode'):
+    def toggleCollisionNodes(self):
+        if not self.collisionsEnabled:
+            for node in render.findAllMatches('**/CollisionNode'):
+                self.collisionsExist = True
+                self.collisionsEnabled = True
                 node.show()
                 print("Found collision node: {}".format(node))
-            self.renderCollisionsToggled = True
-            print("Collisions enabled")
+                print("Collisions enabled")
+            if not self.collisionsExist:
+                print("No collision nodes found.")
         else:
             render.findAllMatches('**/+CollisionNode').hide()
-            self.renderCollisionsToggled = False
+            self.collisionsEnabled = False
             print("Collisions disabled")
 
-    def toggleOccluders(self):
+    def toggleOccluderNodes(self):
         if not self.occludersEnabled:
             for node in render.findAllMatches('**/+OccluderNode'):
-                node.show()
+                self.occluderExist = True
+                self.occludersEnabled = True
+                node.show() # i haven't seen an occluder node before so idk if they have any geom
                 print("Found occluder node: {}".format(node))
-            self.occludersEnabled = True
-            print("Occluders enabled")
+                print("Occluders enabled")
+            if not self.occluderExist:
+                print("No occluder nodes found.")
         else:
             render.findAllMatches('**/+OccluderNode').hide()
             self.occludersEnabled = False
             print("Occluders disabled")
 
+    # todo: figure out the deal going on with the cycle assertion error :|
+    def toggleModelNodes(self):
+        if not self.modelNodesEnabled:
+            for node in render.findAllMatches('**/+ModelNode'):
+                self.modelNodesExist = True
+                self.modelNodesEnabled = True
+                self.xyz = self.XYZAxis.instanceTo(node) #copyTo bad
+                self.xyz.setPos(node.getPos())
+                self.xyz.setHpr(node.getHpr())
+                node.show() # most of the time there's no geometry.
+                print("Found ModelNode: {} at pos:{} hpr:{}".format(node, node.getPos(), node.getHpr()))
+                print("ModelNodes visible")
+            if not self.modelNodesExist:
+                print("No model nodes found.")
+        else:
+            render.findAllMatches('**/ModelNode').hide()
+            for node in self.XYZAxis.getChildren():
+                node.removeNode()
+            self.xyz.removeNode()
+            self.xyz = None
+            self.modelNodesEnabled = False
+            print("Model nodes disabled")
+
     def listNodes(self):
         if self.model is None:
-            return # can't return nodes of something that doesnt exist
+            return # can't return nodes of something that doesn't exist
         print()
         print("-x-x-x-x-x-x-x-x-x-x-x-x-")
         self.model.ls()
