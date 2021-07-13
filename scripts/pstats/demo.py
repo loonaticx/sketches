@@ -10,17 +10,18 @@ import sys, os
 
 from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'model-path $DEV_P3D')
-
-# Only uncomment if you know what this will do
-# I recommend looking at my "pstats" demo if you're unsure what pstats will do
-# loadPrcFileData('', 'want-pstats #t')
-
+loadPrcFileData('', 'want-pstats #t')
 # We need to import the tkinter library to
 # disable the tk window that pops up.
 # We use tk for the file path selector.
 import tkinter as tk
 root = tk.Tk()
 root.withdraw()
+
+"""
+we can probably add task demos and such to stimulate pstats
+though we should consider limiting toggle features (at least have ones that will impact pstats graphs)
+"""
 
 class generate(ShowBase):
     def __init__(self):
