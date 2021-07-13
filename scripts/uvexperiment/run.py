@@ -22,6 +22,11 @@ import tkinter as tk
 root = tk.Tk()
 root.withdraw()
 
+"""
+it would be cool if we were able to 3d plot down
+the vertexes within an egg file
+but i have no fucking clue how that will turn out LMAO
+"""
 
 class epic():
     def __init__(self):
@@ -32,14 +37,17 @@ class epic():
 
     def setupGraph(self, pointsList): #pointsList is LPoint2d
         for point in pointsList:
-            plt.plot(np.array([point[0], point[1]]))
+            #plt.plot(np.array([point[0], point[1]]))
             plt.scatter(point[0], point[1])
         plt.grid(True)
         plt.savefig("test.png")
+        plt.title(self.egg.egg_filename)
         plt.show()
 
     def getUVList(self, eggFile):
         uvList = []
+        # Some models don't get pass through the vertexPool check
+        # so the UVs for smaller models don't get picked up
         for vertexPool in eggFile.getChildren():
             if not isinstance(vertexPool, EggVertexPool):
                 continue
