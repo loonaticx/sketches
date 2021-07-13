@@ -3,6 +3,7 @@ from panda3d.core import WindowProperties
 from panda3d.core import NodePath
 from panda3d.core import PGTop
 from panda3d.core import MouseWatcher
+from panda3d.core import MouseAndKeyboard
 from direct.gui.DirectFrame import DirectFrame
 from direct.gui.DirectSlider import DirectSlider
 from direct.gui.DirectButton import DirectButton
@@ -312,17 +313,25 @@ class ToontownShaderManager(DirectFrame):
     def newWindow(self):
         self.wp = WindowProperties()
         self.wp.setSize(700, 500)
+        self.wp.setRawMice(True)
+        print(self.wp.getMouseMode())
         win2mouseWatcher = MouseWatcher()
-        ar = 1.33
+        ar = 1
         self.win2 = base.openWindow(props=self.wp, aspectRatio=ar)
         self.window2render2d = NodePath('window2render2d')
+        self.window2render2d.setDepthTest(0)
         self.window2render2d.setDepthWrite(0)
-        self.window2camera2d = base.makeCamera2dp(self.win2)
+
+        self.window2camera2d = base.makeCamera2d(self.win2)
         self.window2camera2d.reparentTo(self.window2render2d)
 
         self.window2aspect2d = self.window2render2d.attachNewNode(PGTop('window2aspect2d'))
         self.window2aspect2d.setScale(1.0 / ar, 1.0, 1.0)
-        self.window2aspect2d.node().setMouseWatcher(win2mouseWatcher)
+
+        name = self.win2.getInputDeviceName(0)
+        mk = base.dataRoot.attachNewNode(MouseAndKeyboard(self.win2, 0, name))
+        mw = mk.attachNewNode(MouseWatcher(name))
+        self.window2aspect2d.node().setMouseWatcher(mw.node())
 
         self.loadBlurGUI()
 
