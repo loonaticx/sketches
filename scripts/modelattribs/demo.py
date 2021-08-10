@@ -10,6 +10,7 @@ import sys, os
 
 from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'model-path $DEV_P3D')
+loadPrcFileData('', 'screenshot-extension png')
 
 # Only uncomment if you know what this will do
 # I recommend looking at my "pstats" demo if you're unsure what pstats will do

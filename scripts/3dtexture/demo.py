@@ -85,7 +85,6 @@ class demo(ShowBase):
         button_textpos = (0, -0.02)
         options_text_scale = 0.052
 
-
         self.texScaleButton = DirectSlider(value=self.texScale,
                                           pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 4),
                                           thumb_relief=None, range=(0, 1), thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),

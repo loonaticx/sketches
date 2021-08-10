@@ -32,3 +32,16 @@ allow for typical render.analyze, but also have the ability to show hidden nodes
 ---
 
 pstats stuff, eventually.
+
+---
+
+``<Instance>`` egg demo, eventually B)
+
+
+--- 
+this may end up going really wrong with the way that some NPs are setup, buuuuuuuuuuut especially for areas with many props:
+for each nodepath (collection?) in a group, write out a unique bam file
+
+---
+
+@NodePath --> showThrough() see if this can be toggled to locate any nodes with camera bitmasks?
