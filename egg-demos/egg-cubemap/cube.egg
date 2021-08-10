@@ -1,0 +1,289 @@
+<CoordinateSystem> { Y-Up }
+
+<Comment> {
+  "egg-trans -tbnall cube.egg -o cube.egg"
+}
+<Comment> {
+  "maya2egg2019 -v -p -keep-uvs -round-uvs -tbnall -a none -trans model -exclude groundPlane_transform -cs y-up -uo cm -o C:/Users/Loonatic-IV/Desktop/sketches/egg-demos/egg-cubemap/cube.egg C:/Users/Loonatic-IV/Desktop/sketches/egg-demos/egg-cubemap/cube_temp.mb"
+}
+<Texture> initialShadingGroup {
+  cobblestone_brown.png
+  <Scalar> wrapu { repeat }
+  <Scalar> wrapv { repeat }
+  <Scalar> minfilter { linear_mipmap_linear }
+  <Scalar> magfilter { linear }
+}
+<Group> pCube1 {
+  <VertexPool> pCubeShape1.verts {
+    <Vertex> 0 {
+      -0.5 -0.5 -0.5
+      <UV> {
+        0 1
+        <Tangent> { 0 1 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { -1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 1 {
+      -0.5 -0.5 -0.5
+      <UV> {
+        0 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 1 }
+      }
+      <Normal> { 0 -1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 2 {
+      -0.5 -0.5 -0.5
+      <UV> {
+        0 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 -1 0 }
+      }
+      <Normal> { 0 0 -1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 3 {
+      -0.5 -0.5 0.5
+      <UV> {
+        0 0
+        <Tangent> { 0 1 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { -1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 4 {
+      -0.5 -0.5 0.5
+      <UV> {
+        0 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 1 }
+      }
+      <Normal> { 0 -1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 5 {
+      -0.5 -0.5 0.5
+      <UV> {
+        0 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 6 {
+      -0.5 0.5 -0.5
+      <UV> {
+        1 1
+        <Tangent> { 0 1 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { -1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 7 {
+      -0.5 0.5 -0.5
+      <UV> {
+        0 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 -1 0 }
+      }
+      <Normal> { 0 0 -1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 8 {
+      -0.5 0.5 -0.5
+      <UV> {
+        0 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { 0 1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 9 {
+      -0.5 0.5 0.5
+      <UV> {
+        1 0
+        <Tangent> { 0 1 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { -1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 10 {
+      -0.5 0.5 0.5
+      <UV> {
+        0 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 11 {
+      -0.5 0.5 0.5
+      <UV> {
+        0 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { 0 1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 12 {
+      0.5 -0.5 -0.5
+      <UV> {
+        1 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 1 }
+      }
+      <Normal> { 0 -1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 13 {
+      0.5 -0.5 -0.5
+      <UV> {
+        1 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 -1 0 }
+      }
+      <Normal> { 0 0 -1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 14 {
+      0.5 -0.5 -0.5
+      <UV> {
+        1 0
+        <Tangent> { 0 0 -1 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 15 {
+      0.5 -0.5 0.5
+      <UV> {
+        1 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 1 }
+      }
+      <Normal> { 0 -1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 16 {
+      0.5 -0.5 0.5
+      <UV> {
+        1 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 17 {
+      0.5 -0.5 0.5
+      <UV> {
+        0 0
+        <Tangent> { 0 0 -1 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 18 {
+      0.5 0.5 -0.5
+      <UV> {
+        1 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 -1 0 }
+      }
+      <Normal> { 0 0 -1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 19 {
+      0.5 0.5 -0.5
+      <UV> {
+        1 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { 0 1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 20 {
+      0.5 0.5 -0.5
+      <UV> {
+        1 1
+        <Tangent> { 0 0 -1 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 21 {
+      0.5 0.5 0.5
+      <UV> {
+        1 1
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 0 0 1 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 22 {
+      0.5 0.5 0.5
+      <UV> {
+        1 0
+        <Tangent> { 1 0 0 }
+        <Binormal> { 0 0 -1 }
+      }
+      <Normal> { 0 1 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+    <Vertex> 23 {
+      0.5 0.5 0.5
+      <UV> {
+        0 1
+        <Tangent> { 0 0 -1 }
+        <Binormal> { 0 1 0 }
+      }
+      <Normal> { 1 0 0 }
+      <RGBA> { 1 1 1 1 }
+    }
+  }
+  <Polygon> {
+    <Normal> { 0 0 1 }
+    <TRef> { initialShadingGroup }
+    <VertexRef> { 5 16 21 10 <Ref> { pCubeShape1.verts } }
+  }
+  <Polygon> {
+    <Normal> { 0 1 0 }
+    <TRef> { initialShadingGroup }
+    <VertexRef> { 11 22 19 8 <Ref> { pCubeShape1.verts } }
+  }
+  <Polygon> {
+    <Normal> { 0 0 -1 }
+    <TRef> { initialShadingGroup }
+    <VertexRef> { 7 18 13 2 <Ref> { pCubeShape1.verts } }
+  }
+  <Polygon> {
+    <Normal> { 0 -1 0 }
+    <TRef> { initialShadingGroup }
+    <VertexRef> { 1 12 15 4 <Ref> { pCubeShape1.verts } }
+  }
+  <Polygon> {
+    <Normal> { 1 0 0 }
+    <TRef> { initialShadingGroup }
+    <VertexRef> { 17 14 20 23 <Ref> { pCubeShape1.verts } }
+  }
+  <Polygon> {
+    <Normal> { -1 0 0 }
+    <TRef> { initialShadingGroup }
+    <VertexRef> { 0 3 9 6 <Ref> { pCubeShape1.verts } }
+  }
+}
