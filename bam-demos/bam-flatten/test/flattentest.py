@@ -19,7 +19,8 @@ if all of the collisions were placed in their own group instead of being with th
 loader = Loader.getGlobalPtr()
 node1 = loader.loadSync("testmodel.egg")
 node1 = NodePath(node1)
-
+print("node1")
+print(node1.ls())
 #node1.writeBamFile("testmodel.bam")
 alsonp = node1.__copy__()
 alsonp.flattenStrong()
@@ -41,25 +42,32 @@ def method3():
 
     # this is what we want to focus our flattening on...
     def walkgeom(node):
-        for nodes in node.getChildren():
-            if not isinstance(nodes, GeomNode):
-                walkgeom(nodes)
-            else:
-                #print("stashing {}".format(nodes))
-                #node.stashChild(nodes)
-                #collPandaNode.stealChildren(nodes)
-                geomPandaNode.addChild(nodes)
-                node.removeChild(nodes)
-                continue
-
+        for nodes in node.getChildren(): # nodepaths in collection i think
+            #print(nodes.getNodes())
+            for nodetype in nodes.getNodes():
+                if not isinstance(nodetype, GeomNode): # none are GeomNode instances rn
+                    walkgeom(nodes)
+                else:
+                    #print(".")
+                    #print("stashing {}".format(nodes))
+                    #node.stashChild(nodes)
+                    #collPandaNode.stealChildren(nodes)
+                    if isinstance(nodetype, PandaNode):
+                        geomPandaNode.addChild(nodetype)
+                        #node.removeChild(nodetype)
+                    continue
     walkgeom(model)
-
+    #print(geomPandaNode.getChildren())
     geomNode = NodePath("geom")
     geomPandaNode = geomNode.attachNewNode(geomPandaNode)
+    print(geomNode.ls())
     for c in geomNode.getChildren():
+        #print(c) # prints geom/geom
         for d in c.getChildren():
-            #print(d)
-            d.flattenStrong()
+            print(d.node()) # doesn't print anything
+            d.node().setPreserved(False) # geomnodes is d.node()
+            d.node().unify(10, True)
+    print(geomNode.ls())
 
 def method4():
     for m in model.getChildren():
@@ -81,16 +89,57 @@ def method5():
         for npc in m.getChildren():
             print(type(npc))
 
+# use this method to look into flattening not the entire nodepath butsome child nodes
+def method6():
+    geomNode = NodePath("geom")
+    collNode = NodePath("coll")
+    for m in model.getChildren():
+        for n in m.getChildren():
+            if isinstance(n.node(), GeomNode):
+                geomNode.attachNewNode(n.node())
+            if isinstance(n.node(), CollisionNode):
+                collNode.attachNewNode(n.node())
+            if isinstance(n.node(), PandaNode):
+                for pn in n.getChildren():
+                    if pn.node().isGeomNode():
+                        geomNode.attachNewNode(pn.node())
+                    elif pn.node().isCollisionNode():
+                        collNode.attachNewNode(pn.node())
+            elif isinstance(n.node(), ModelNode): # They can be hiding in here too, though idk if i should associate tem with the same group bcause these may be delicate nodes
+                for pn in n.getChildren():
+                    if pn.node().isGeomNode():
+                        geomNode.attachNewNode(pn.node())
+                    elif pn.node().isCollisionNode():
+                        collNode.attachNewNode(pn.node())
+
+    #print(geomNode.ls())
+    #geomNode.flattenStrong()
+    #print(geomNode.ls()) # it flattened it!!! yahooo
+
+    for node in geomNode.getChildren():
+        for item in model.findAllMatches("**/{}".format(node.getName())):
+            print(item.node())
+            item.removeNode()
+        #if not check.isEmpty(): ## um i dont think any of this did anything helpful
+        #   check.removePath(model)
+
+#method6 but actually this time dammit
+def method7():
+    for m in model.getChildren():
+        if m.getName() == "geom":
+            m.flattenStrong() # ok i wish it was thaaat easy? :/
 
 #method1() does not work
 #method2() does not work
-#method3() does not work
+#method3() # does not work but cool
 #method4()
-method5()
+#method5()
+#method6() maybe
+method7()
+
 
 def printstuff():
-    print("node1")
-    print(node1.ls())
+
     print()
     print("alsonp")
     print(alsonp.ls())
