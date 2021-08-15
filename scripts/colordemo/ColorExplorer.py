@@ -1,3 +1,17 @@
+"""
+  Panda3D Color Explorer
+  Explore & modify models using setColor and setColorScale
+  Author: Loonatic
+  Date: 7/12/2021
+
+  https://docs.panda3d.org/1.10/python/programming/render-attributes/tinting-and-recoloring
+
+  setColorScale = This color will be modulated (multiplied) <-- for tinting
+  setColor = If the model already had vertex colors, they will disappear - method is replacing those colors with a new one
+
+  TLDR: setColorScale = keep vertex painting, setColor = remove vertex painting
+"""
+
 from direct.tkwidgets.MemoryExplorer import MemoryExplorer
 from direct.showbase.ShowBase import ShowBase
 from pathlib import Path
@@ -6,7 +20,7 @@ from direct.gui.DirectGui import *
 import sys, os
 
 from panda3d.core import loadPrcFileData
-loadPrcFileData('', 'model-path $DEV_P3D')
+loadPrcFileData('', 'model-path $RESOURCE_DIR')
 
 # We need to import the tkinter library to
 # disable the tk window that pops up.
@@ -14,8 +28,7 @@ loadPrcFileData('', 'model-path $DEV_P3D')
 import tkinter as tk
 root = tk.Tk()
 root.withdraw()
-# TLDR: setColorScale = vertex painting, setColor = no vertex painting
-class driver(ShowBase):
+class ColorExplorer(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         self.base = ShowBase
@@ -27,7 +40,7 @@ class driver(ShowBase):
         self.colorR = 1
         self.colorG = 1
         self.colorB = 1
-        self.colorA = 1
+        self.colorA = 1 # If a model's material only uses RGB texture mode this won't affect anything
         base.setSceneGraphAnalyzerMeter(False)
 
         self.loadGUI()
@@ -69,7 +82,6 @@ class driver(ShowBase):
                                   frameSize=(-0.5, 0.5, -0.08, 0.08),
                                   command=self.changeColorValue)
 
-        # todo maybe make this a radio button instead
         self.buttonColorMode = [
         DirectRadioButton(text='setColorScale', variable=self.colorScale, value=[1],
                         scale=0.05, pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 3), command=self.changeColorValue),
@@ -94,7 +106,6 @@ class driver(ShowBase):
                 node.setColor(self.colorR, self.colorB, self.colorG, self.colorA)
 
     def browseModel(self):
-    # does direct.showbase.Loader.loadModel support any of the normal model types like obj/fbx?
         path = Path(askopenfilename(filetypes = (
             ("Panda3D Model Files", "*.egg;*.bam"),
             ("EGG", "*.egg"),
@@ -118,12 +129,11 @@ class driver(ShowBase):
         print("========================================")
         print("Loaded {}".format(file))
 
-
     def clearScene(self):
         if self.model is not None:
             self.model.removeNode()
             self.model = None
 
 
-app = driver()
+app = ColorExplorer()
 app.run()

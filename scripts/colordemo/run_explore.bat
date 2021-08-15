@@ -1,3 +1,3 @@
-set /P DEV_P3D=<DEV_P3D
-python color_explore.py
+set /P RESOURCE_DIR=<RESOURCE_DIR
+python ColorExplorer.py
 pause

@@ -1,3 +1,15 @@
+"""
+  Panda3D Color Demo
+  Demonstrating setColor and setColorScale
+  Author: Loonatic
+  Date: 7/12/2021
+
+  https://docs.panda3d.org/1.10/python/programming/render-attributes/tinting-and-recoloring
+
+  setColorScale = This color will be modulated (multiplied) <-- for tinting
+  setColor = If the model already had vertex colors, they will disappear - method is replacing those colors with a new one
+"""
+
 from direct.showbase.ShowBase import ShowBase
 from pathlib import Path
 from panda3d.core import NodePath
@@ -7,17 +19,8 @@ import sys, os
 from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'model-path $DEV_P3D')
 
-# Demo
-# https://docs.panda3d.org/1.10/python/programming/render-attributes/tinting-and-recoloring
-
-# setColorScale = This color will be modulated (multiplied) <-- for tinting
-
-# setColor = If the model already had vertex colors, they will dissapear - method is replacing those colors with a new one
-# The reason why the 4th (alpha) slider doesn't do anything right now is because it is using RGB color mode & not RGBA
-
 # I can probably make this way better if I copy what I did for the explore script but w/e
-
-class demo(ShowBase):
+class ColorDemo(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
         base.cam.setPos(0, -4, 0)
@@ -59,7 +62,6 @@ class demo(ShowBase):
     Two faces may look identical in color, one has no vertex painting applied & one has white vertex painting applied. Also double-sided.
     No material is set on either of these.
     """
-
     def loadDemo(self):
         cube1 = render.attachNewNode('cube1')
         cube2 = render.attachNewNode('cube2')
@@ -80,13 +82,10 @@ class demo(ShowBase):
         self.cubeModel4 = self.cubeModel3.copyTo(cube4)
         self.cubeModel4.setPosHpr(1.00, 1.45, -0.65, self.currentH, self.currentP, 0)
 
-
-
     def loadGUI(self):
         buttonSpacing = 0.1
         buttonbase_xcoord = 0
         buttonbase_ycoord = -0.25
-
 
         self.buttonColorR = DirectSlider(value=self.colorR,
                                 pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 4),
@@ -106,6 +105,7 @@ class demo(ShowBase):
                                   frameSize=(-0.5, 0.5, -0.08, 0.08),
                                   command=self.changeColorValue)
 
+        # The reason why the 4th (alpha) slider doesn't do anything right now is because it is using RGB color mode & not RGBA
         self.buttonColorA = DirectSlider(value=self.colorA,
                                   pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 7),
                                   range=(0, 1),
@@ -130,7 +130,6 @@ class demo(ShowBase):
         self.cubeModel2.setColor(self.colorR, self.colorB, self.colorG, self.colorA)
         self.cubeModel3.setColorScale(self.colorR, self.colorB, self.colorG, self.colorA)
         self.cubeModel4.setColor(self.colorR, self.colorB, self.colorG, self.colorA)
-
 
     # lazy, i know.
 
@@ -161,6 +160,5 @@ class demo(ShowBase):
         self.cubeModel4.setP(self.currentP)
 
 
-
-app = demo()
+app = ColorDemo()
 app.run()
