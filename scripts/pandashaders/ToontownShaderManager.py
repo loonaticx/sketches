@@ -26,7 +26,7 @@ class ToontownShaderManager(DirectFrame):
     def __init__(self, parent):
         self._parent = parent
         DirectFrame.__init__(self, parent=self._parent, relief=None, pos=(0.0, 0.0, 0.0), scale=(1.0, 1.0, 1.0))
-        self.filter = CommonFilters(base.win, base.cam)
+        self.filter = CommonFilters(base.win, base.cam) # Only affects primary window
 
         # Ambient Occlusion
         self.samples = 0
@@ -66,18 +66,19 @@ class ToontownShaderManager(DirectFrame):
         self.circleModel = loader.loadModel('phase_3/models/gui/tt_m_gui_mat_nameShop')
         self.barTexture = loader.loadTexture('phase_3/maps/slider.png')
         self.loadGUI()
-        self.newWindow()
+        # self.newWindow() # Disabled for now
 
 
     def loadGUI(self):
         self.textRowHeight = 0.2
         self.buttonbase_xcoord = 1.4
         self.buttonbase_ycoord = 0.45
-        #self.loadAmbientOcclusionGUI()
-        #self.loadBlurGUI()
-        #self.loadExposureGUI()
-        #self.loadCartoonInkGUI()
-        #self.loadHotkeys()
+        self.loadAmbientOcclusionGUI()
+        self.loadBlurGUI()
+        self.loadExposureGUI()
+        self.loadCartoonInkGUI()
+        self.loadHotkeys()
+
 
     def loadHotkeys(self):
         # for now instead of gui buttons i'ma just put the bool filters as hotkeys
@@ -145,7 +146,6 @@ class ToontownShaderManager(DirectFrame):
                                               frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
                                               command=self.__changeCartoon)
                                               #command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
-        self.cSep.reparentTo(self.window2render2d)
         self.cSep.setScale(0.5)
         self.cSep.setTransparency(True)
 
@@ -180,27 +180,27 @@ class ToontownShaderManager(DirectFrame):
         self.cGreen.setTransparency(True)
 
     def loadBlurGUI(self):
-        self.numBlur = DirectSlider(parent=self.window2aspect2d, value=self.blur, pos=(0.0, 0.0, 0.0),
-                                              #pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 2.5)),
+        self.numBlur = DirectSlider(parent=self, value=self.blur, # pos=(0.0, 0.0, 0.0), # for new window
+                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 0.5)),
                                               thumb_relief=None, range=(-10, 10), #self.SAMPLES_MAX
                                               thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
                                               frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
                                               command=self.__changeBlur)
         self.numBlur.setScale(0.5)
         self.numBlur.setTransparency(True)
-        self.numBlurText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 2.2), scale=0.05, text="Blur Amount = {}".format(self.blur), style=5, mayChange=True)
+        self.numBlurText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 0.2), scale=0.05, text="Blur Amount = {}".format(self.blur), style=5, mayChange=True)
 
 
     def loadExposureGUI(self):
         self.numExposure = DirectSlider(parent=self, value=self.exposure,
-                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 2.5)),
+                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 2.2)),
                                               thumb_relief=None, range=(0, 5), #self.SAMPLES_MAX
                                               thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
                                               frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
                                               command=self.__changeExposure)
         self.numExposure.setScale(0.5)
         self.numExposure.setTransparency(True)
-        self.numExposureText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 2.2), scale=0.05, text="Exposure Amount = {}".format(self.blur), style=5, mayChange=True)
+        self.numExposureText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 1.9), scale=0.05, text="Exposure Amount = {}".format(self.blur), style=5, mayChange=True)
 
 
     def printValue(self):
@@ -309,6 +309,8 @@ class ToontownShaderManager(DirectFrame):
     def getValue(self, item, item_MAX):
         return item / item_MAX
 
+    # Not gonna use this feature since it makes it very laggy. I will have to figure out
+    # a better way to layout UI some other time.
     # https://discourse.panda3d.org/t/how-to-open-a-new-window/23929/4
     def newWindow(self):
         self.wp = WindowProperties()
@@ -325,6 +327,7 @@ class ToontownShaderManager(DirectFrame):
         self.window2camera2d = base.makeCamera2d(self.win2)
         self.window2camera2d.reparentTo(self.window2render2d)
 
+        # Parent gui to this
         self.window2aspect2d = self.window2render2d.attachNewNode(PGTop('window2aspect2d'))
         self.window2aspect2d.setScale(1.0 / ar, 1.0, 1.0)
 
@@ -333,7 +336,6 @@ class ToontownShaderManager(DirectFrame):
         mw = mk.attachNewNode(MouseWatcher(name))
         self.window2aspect2d.node().setMouseWatcher(mw.node())
 
-        self.loadBlurGUI()
 
 
 ######
