@@ -1,3 +1,3 @@
-set /P DEV_P3D=<DEV_P3D
+set /P RESOURCE_DIR=<RESOURCE_DIR
 python generate_demo.py
 pause

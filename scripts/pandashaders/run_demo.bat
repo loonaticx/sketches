@@ -1,0 +1,4 @@
+set /P RESOURCE_DIR=<RESOURCE_DIR
+set /P P3D_PPYTHON_DIR=<P3D_PPYTHON_DIR
+%P3D_PPYTHON_DIR%/ppython demo.py
+pause

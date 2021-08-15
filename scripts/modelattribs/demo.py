@@ -9,7 +9,7 @@ from direct.gui.DirectGui import *
 import sys, os
 
 from panda3d.core import loadPrcFileData
-loadPrcFileData('', 'model-path $DEV_P3D')
+loadPrcFileData('', 'model-path $RESOURCE_DIR')
 loadPrcFileData('', 'screenshot-extension png')
 
 # Only uncomment if you know what this will do
@@ -41,6 +41,7 @@ class generate(ShowBase):
         self.occluderExist = False
         self.modelNodesEnabled = False
         self.modelNodesExist = False
+        base.setSceneGraphAnalyzerMeter(True)
         self.XYZAxis = loader.loadModel("models/misc/xyzAxis.bam")
         self.showNode = NodePath()
 

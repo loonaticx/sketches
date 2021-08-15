@@ -8,7 +8,7 @@ import sys, os
 
 
 from panda3d.core import loadPrcFileData
-loadPrcFileData('', 'model-path $DEV_P3D')
+loadPrcFileData('', 'model-path $RESOURCE_DIR')
 
 # We need to import the tkinter library to
 # disable the tk window that pops up.
@@ -97,7 +97,7 @@ class generate(ShowBase):
     https://docs.panda3d.org/1.10/python/reference/direct.showbase.ShowBase#direct.showbase.ShowBase.ShowBase.saveSphereMap
     https://docs.panda3d.org/1.10/python/_modules/direct/showbase/ShowBase#ShowBase.saveSphereMap
 
-    This works much like saveCubeMap(), and uses the graphics API’s hardware cube-mapping ability to get a 360-degree view of the world.
+    This works much like saveCubeMap(), and uses the graphics API's hardware cube-mapping ability to get a 360-degree view of the world.
     But then it converts the six cube map faces into a single fisheye texture, suitable for applying as a static environment map (sphere map).
 
     For eye-relative static environment maps, sphere maps are often preferable to cube maps because they require only a single texture and because they are supported on a broader range of hardware.

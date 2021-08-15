@@ -9,7 +9,7 @@ from direct.gui.DirectGui import *
 import sys, os
 
 from panda3d.core import loadPrcFileData
-loadPrcFileData('', 'model-path $DEV_P3D')
+loadPrcFileData('', 'model-path $RESOURCE_DIR')
 loadPrcFileData('', 'want-pstats #t')
 # We need to import the tkinter library to
 # disable the tk window that pops up.
