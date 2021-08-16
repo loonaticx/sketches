@@ -1,3 +1,4 @@
+set /P RESOURCE_DIR=<RESOURCE_DIR
 set /P PPYTHON_DIR=<PPYTHON_DIR
-%PPYTHON_DIR%/ppython.exe VisualizeScene.py
+%PPYTHON_DIR%/ppython.exe demo.py
 pause

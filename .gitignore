@@ -4,3 +4,12 @@
 *_temp*
 Layer *.png
 output*.png
+*.mb
+__pycache__
+*.psd
+
+# Config stuff
+scripts/animpanel/P3D_PPYTHON_DIR
+scripts/animpanel/RESOURCE_DIR
+scripts/colordemo/RESOURCE_DIR
+
