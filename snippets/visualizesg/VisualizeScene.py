@@ -4,28 +4,14 @@ import matplotlib.pyplot as plt
 import pydot
 import cv2
 import numpy as np
-from direct.showbase.ShowBase import ShowBase
 
-class VisualizeScene(ShowBase):
+class VisualizeScene():
     def __init__(self):
-        ShowBase.__init__(self)
-        self.base = ShowBase
-        self.load()
-        self.showSceneGraph()
+        pass
 
-    # Sample usage
-    def load(self):
-        child1 = [base.render.attach_new_node(f'child{i}') for i in range(10)]
-        for child in child1:
-            child.setPos(*np.random.rand(3))
-
-        child2 = [child1[2].attach_new_node(f'child{i}') for i in range(5)]
-        for child in child2:
-            child.setHpr(*np.random.rand(3))
-
-    def showSceneGraph(self):
+    def showSceneGraph(self, np):
         plt.figure(figsize=(20,20))
-        plt.imshow(self.draw_scene_graph(base.render))
+        plt.imshow(self.draw_scene_graph(np)) # if this doesnt work we can do base.render but then we would have to pass the showbase instance
         plt.savefig("SceneGraph.png")
         plt.title("Scene Graph")
         plt.show()
@@ -76,6 +62,3 @@ class VisualizeScene(ShowBase):
             im_arr = np.frombuffer(im_buf, 'uint8')
             im_cv = cv2.imdecode(im_arr, cv2.IMREAD_ANYCOLOR)[..., ::-1]
             return im_cv
-
-app = VisualizeScene()
-app.run()
