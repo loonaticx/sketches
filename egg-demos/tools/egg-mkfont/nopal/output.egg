@@ -1,8 +1,8 @@
 <Comment> {
-  "egg-mkfont -nopal Comedy.ttf -o nopal/output.egg"
+  "egg-mkfont -nopal Comedy.ttf -o output.egg"
 }
 <Texture> output8230 {
-  "nopal/output8230.png"
+  "output8230.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -10,7 +10,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output8222 {
-  "nopal/output8222.png"
+  "output8222.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -18,7 +18,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output8221 {
-  "nopal/output8221.png"
+  "output8221.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -26,7 +26,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output8220 {
-  "nopal/output8220.png"
+  "output8220.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -34,7 +34,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output8218 {
-  "nopal/output8218.png"
+  "output8218.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -42,7 +42,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output8217 {
-  "nopal/output8217.png"
+  "output8217.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -50,7 +50,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output8216 {
-  "nopal/output8216.png"
+  "output8216.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -58,7 +58,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output305 {
-  "nopal/output305.png"
+  "output305.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -66,7 +66,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output254 {
-  "nopal/output254.png"
+  "output254.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -74,7 +74,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output248 {
-  "nopal/output248.png"
+  "output248.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -82,7 +82,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output240 {
-  "nopal/output240.png"
+  "output240.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -90,7 +90,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output231 {
-  "nopal/output231.png"
+  "output231.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -98,7 +98,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output230 {
-  "nopal/output230.png"
+  "output230.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -106,7 +106,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output223 {
-  "nopal/output223.png"
+  "output223.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -114,7 +114,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output199 {
-  "nopal/output199.png"
+  "output199.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -122,7 +122,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output198 {
-  "nopal/output198.png"
+  "output198.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -130,7 +130,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output191 {
-  "nopal/output191.png"
+  "output191.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -138,7 +138,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output187 {
-  "nopal/output187.png"
+  "output187.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -146,7 +146,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output184 {
-  "nopal/output184.png"
+  "output184.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -154,7 +154,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output181 {
-  "nopal/output181.png"
+  "output181.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -162,7 +162,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output176 {
-  "nopal/output176.png"
+  "output176.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -170,7 +170,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output171 {
-  "nopal/output171.png"
+  "output171.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -178,7 +178,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output169 {
-  "nopal/output169.png"
+  "output169.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -186,7 +186,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output161 {
-  "nopal/output161.png"
+  "output161.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -194,7 +194,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output126 {
-  "nopal/output126.png"
+  "output126.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -202,7 +202,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output125 {
-  "nopal/output125.png"
+  "output125.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -210,7 +210,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output124 {
-  "nopal/output124.png"
+  "output124.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -218,7 +218,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output123 {
-  "nopal/output123.png"
+  "output123.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -226,7 +226,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output122 {
-  "nopal/output122.png"
+  "output122.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -234,7 +234,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output121 {
-  "nopal/output121.png"
+  "output121.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -242,7 +242,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output120 {
-  "nopal/output120.png"
+  "output120.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -250,7 +250,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output119 {
-  "nopal/output119.png"
+  "output119.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -258,7 +258,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output118 {
-  "nopal/output118.png"
+  "output118.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -266,7 +266,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output117 {
-  "nopal/output117.png"
+  "output117.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -274,7 +274,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output116 {
-  "nopal/output116.png"
+  "output116.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -282,7 +282,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output115 {
-  "nopal/output115.png"
+  "output115.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -290,7 +290,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output114 {
-  "nopal/output114.png"
+  "output114.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -298,7 +298,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output113 {
-  "nopal/output113.png"
+  "output113.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -306,7 +306,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output112 {
-  "nopal/output112.png"
+  "output112.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -314,7 +314,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output111 {
-  "nopal/output111.png"
+  "output111.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -322,7 +322,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output110 {
-  "nopal/output110.png"
+  "output110.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -330,7 +330,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output109 {
-  "nopal/output109.png"
+  "output109.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -338,7 +338,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output108 {
-  "nopal/output108.png"
+  "output108.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -346,7 +346,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output107 {
-  "nopal/output107.png"
+  "output107.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -354,7 +354,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output106 {
-  "nopal/output106.png"
+  "output106.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -362,7 +362,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output105 {
-  "nopal/output105.png"
+  "output105.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -370,7 +370,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output104 {
-  "nopal/output104.png"
+  "output104.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -378,7 +378,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output103 {
-  "nopal/output103.png"
+  "output103.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -386,7 +386,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output102 {
-  "nopal/output102.png"
+  "output102.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -394,7 +394,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output101 {
-  "nopal/output101.png"
+  "output101.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -402,7 +402,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output100 {
-  "nopal/output100.png"
+  "output100.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -410,7 +410,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output099 {
-  "nopal/output099.png"
+  "output099.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -418,7 +418,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output098 {
-  "nopal/output098.png"
+  "output098.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -426,7 +426,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output097 {
-  "nopal/output097.png"
+  "output097.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -434,7 +434,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output096 {
-  "nopal/output096.png"
+  "output096.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -442,7 +442,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output095 {
-  "nopal/output095.png"
+  "output095.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -450,7 +450,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output094 {
-  "nopal/output094.png"
+  "output094.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -458,7 +458,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output093 {
-  "nopal/output093.png"
+  "output093.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -466,7 +466,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output092 {
-  "nopal/output092.png"
+  "output092.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -474,7 +474,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output091 {
-  "nopal/output091.png"
+  "output091.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -482,7 +482,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output090 {
-  "nopal/output090.png"
+  "output090.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -490,7 +490,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output089 {
-  "nopal/output089.png"
+  "output089.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -498,7 +498,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output088 {
-  "nopal/output088.png"
+  "output088.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -506,7 +506,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output087 {
-  "nopal/output087.png"
+  "output087.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -514,7 +514,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output086 {
-  "nopal/output086.png"
+  "output086.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -522,7 +522,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output085 {
-  "nopal/output085.png"
+  "output085.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -530,7 +530,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output084 {
-  "nopal/output084.png"
+  "output084.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -538,7 +538,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output083 {
-  "nopal/output083.png"
+  "output083.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -546,7 +546,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output082 {
-  "nopal/output082.png"
+  "output082.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -554,7 +554,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output081 {
-  "nopal/output081.png"
+  "output081.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -562,7 +562,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output080 {
-  "nopal/output080.png"
+  "output080.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -570,7 +570,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output079 {
-  "nopal/output079.png"
+  "output079.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -578,7 +578,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output078 {
-  "nopal/output078.png"
+  "output078.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -586,7 +586,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output077 {
-  "nopal/output077.png"
+  "output077.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -594,7 +594,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output076 {
-  "nopal/output076.png"
+  "output076.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -602,7 +602,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output075 {
-  "nopal/output075.png"
+  "output075.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -610,7 +610,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output074 {
-  "nopal/output074.png"
+  "output074.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -618,7 +618,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output073 {
-  "nopal/output073.png"
+  "output073.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -626,7 +626,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output072 {
-  "nopal/output072.png"
+  "output072.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -634,7 +634,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output071 {
-  "nopal/output071.png"
+  "output071.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -642,7 +642,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output070 {
-  "nopal/output070.png"
+  "output070.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -650,7 +650,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output069 {
-  "nopal/output069.png"
+  "output069.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -658,7 +658,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output068 {
-  "nopal/output068.png"
+  "output068.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -666,7 +666,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output067 {
-  "nopal/output067.png"
+  "output067.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -674,7 +674,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output066 {
-  "nopal/output066.png"
+  "output066.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -682,7 +682,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output065 {
-  "nopal/output065.png"
+  "output065.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -690,7 +690,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output064 {
-  "nopal/output064.png"
+  "output064.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -698,7 +698,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output063 {
-  "nopal/output063.png"
+  "output063.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -706,7 +706,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output062 {
-  "nopal/output062.png"
+  "output062.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -714,7 +714,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output061 {
-  "nopal/output061.png"
+  "output061.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -722,7 +722,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output060 {
-  "nopal/output060.png"
+  "output060.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -730,7 +730,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output059 {
-  "nopal/output059.png"
+  "output059.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -738,7 +738,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output058 {
-  "nopal/output058.png"
+  "output058.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -746,7 +746,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output057 {
-  "nopal/output057.png"
+  "output057.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -754,7 +754,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output056 {
-  "nopal/output056.png"
+  "output056.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -762,7 +762,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output055 {
-  "nopal/output055.png"
+  "output055.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -770,7 +770,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output054 {
-  "nopal/output054.png"
+  "output054.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -778,7 +778,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output053 {
-  "nopal/output053.png"
+  "output053.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -786,7 +786,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output052 {
-  "nopal/output052.png"
+  "output052.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -794,7 +794,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output051 {
-  "nopal/output051.png"
+  "output051.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -802,7 +802,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output050 {
-  "nopal/output050.png"
+  "output050.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -810,7 +810,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output049 {
-  "nopal/output049.png"
+  "output049.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -818,7 +818,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output048 {
-  "nopal/output048.png"
+  "output048.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -826,7 +826,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output047 {
-  "nopal/output047.png"
+  "output047.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -834,7 +834,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output046 {
-  "nopal/output046.png"
+  "output046.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -842,7 +842,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output045 {
-  "nopal/output045.png"
+  "output045.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -850,7 +850,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output044 {
-  "nopal/output044.png"
+  "output044.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -858,7 +858,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output043 {
-  "nopal/output043.png"
+  "output043.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -866,7 +866,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output042 {
-  "nopal/output042.png"
+  "output042.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -874,7 +874,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output041 {
-  "nopal/output041.png"
+  "output041.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -882,7 +882,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output040 {
-  "nopal/output040.png"
+  "output040.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -890,7 +890,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output039 {
-  "nopal/output039.png"
+  "output039.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -898,7 +898,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output038 {
-  "nopal/output038.png"
+  "output038.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -906,7 +906,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output037 {
-  "nopal/output037.png"
+  "output037.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -914,7 +914,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output036 {
-  "nopal/output036.png"
+  "output036.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -922,7 +922,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output035 {
-  "nopal/output035.png"
+  "output035.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -930,7 +930,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output034 {
-  "nopal/output034.png"
+  "output034.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
@@ -938,7 +938,7 @@
   <Scalar> quality-level { best }
 }
 <Texture> output033 {
-  "nopal/output033.png"
+  "output033.png"
   <Scalar> format { alpha }
   <Scalar> wrap { clamp }
   <Scalar> minfilter { linear_mipmap_linear }
