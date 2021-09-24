@@ -64,6 +64,10 @@ Some sketches turn out to evolve into complete pieces. I plan to retire sketches
 Script to build an organized version of the TTO asset pipeline (texture end)
 [**Moved Here**](https://github.com/P3DCAT/SpotifyTextureOrganizer)
 
+### Clothing Previewer/Renderer
+Load in clothing textures and take transparent render screenshots to use for graphic design/promotional purposes
+[**Moved Here**](https://github.com/loonaticx/ClothingPreview)
+
 
 ## Useful Links
 https://docs.panda3d.org/1.10/python/glossary
