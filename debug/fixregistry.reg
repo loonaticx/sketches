@@ -4,6 +4,23 @@ Windows Registry Editor Version 5.00
 ; This clears the values in the Registry of where some Python installations are located so that it won't default to them when running a specific version of Panda.
 ; Use this if adjusting your environment variables isn't fixing the problem.
 
+; Python 2.7
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore]
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\2.7]
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\2.7\InstallPath]
+@=""
+"ExecutablePath"=""
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\2.7\PythonPath]
+@=""
+"ExecutablePath"=""
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\2.7\PythonPath\Panda3D]
+@=""
+"ExecutablePath"=""
+
 ; Python 3.6
 [HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore]
 
@@ -18,6 +35,23 @@ Windows Registry Editor Version 5.00
 "ExecutablePath"=""
 
 [HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\3.6\PythonPath\Panda3D]
+@=""
+"ExecutablePath"=""
+
+; Python 3.7
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore]
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\3.7]
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\3.7\InstallPath]
+@=""
+"ExecutablePath"=""
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\3.7\PythonPath]
+@=""
+"ExecutablePath"=""
+
+[HKEY_CURRENT_USER\SOFTWARE\Python\PythonCore\3.7\PythonPath\Panda3D]
 @=""
 "ExecutablePath"=""
 
