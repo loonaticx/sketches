@@ -3,27 +3,7 @@
 <Comment> {
   "maya2egg_client -uo ft -tbnall -nv 60 -o tt_m_gui_mat_namePanel.egg tt_m_gui_mat_namePanel.mb"
 }
-<Texture> lambert9SG {
-  "tt_t_gui_mat_namePanelSquareDown.png"
-  <Scalar> wrapu { repeat }
-  <Scalar> wrapv { repeat }
-  <Scalar> minfilter { linear_mipmap_linear }
-  <Scalar> magfilter { linear }
-}
-<Texture> lambert8SG {
-  "tt_t_gui_mat_namePanelSquareHover.png"
-  <Scalar> wrapu { repeat }
-  <Scalar> wrapv { repeat }
-  <Scalar> minfilter { linear_mipmap_linear }
-  <Scalar> magfilter { linear }
-}
-<Texture> lambert7SG {
-  "tt_t_gui_mat_namePanelSquareUp.png"
-  <Scalar> wrapu { repeat }
-  <Scalar> wrapv { repeat }
-  <Scalar> minfilter { linear_mipmap_linear }
-  <Scalar> magfilter { linear }
-}
+
 <Texture> lambert6SG {
   "tt_t_gui_mat_namePanelArrowDown.png"
   <Scalar> wrapu { repeat }
@@ -31,13 +11,7 @@
   <Scalar> minfilter { linear_mipmap_linear }
   <Scalar> magfilter { linear }
 }
-<Texture> lambert5SG {
-  "tt_t_gui_mat_namePanelArrowHover.png"
-  <Scalar> wrapu { repeat }
-  <Scalar> wrapv { repeat }
-  <Scalar> minfilter { linear_mipmap_linear }
-  <Scalar> magfilter { linear }
-}
+
 <Texture> lambert4SG {
   "tt_t_gui_mat_namePanelArrowUp.png"
   <Scalar> wrapu { repeat }
@@ -45,27 +19,9 @@
   <Scalar> minfilter { linear_mipmap_linear }
   <Scalar> magfilter { linear }
 }
-<Texture> lambert3SG {
-  "tt_t_gui_mat_namePanelCircle.png"
-  <Scalar> wrapu { repeat }
-  <Scalar> wrapv { repeat }
-  <Scalar> minfilter { linear_mipmap_linear }
-  <Scalar> magfilter { linear }
-}
-<Texture> lambert2SG {
-  "tt_t_gui_mat_namePanel.png"
-  <Scalar> wrapu { repeat }
-  <Scalar> wrapv { repeat }
-  <Scalar> minfilter { linear_mipmap_linear }
-  <Scalar> magfilter { linear }
-}
-<Texture> lambert10SG {
-  "tt_t_gui_mat_typeNamePanel.png"
-  <Scalar> wrapu { repeat }
-  <Scalar> wrapv { repeat }
-  <Scalar> minfilter { linear_mipmap_linear }
-  <Scalar> magfilter { linear }
-}
+
+
+
 <Group> namePanelGroup {
   <Group> bkg {
     <Group> nameBkg {
@@ -112,7 +68,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert2SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { nameBkgShape.verts } }
       }
     }
@@ -171,7 +127,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert7SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareTop_upShape.verts } }
       }
     }
@@ -228,7 +184,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert8SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareTop_hoverShape.verts } }
       }
     }
@@ -285,7 +241,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert9SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareTop_downShape.verts } }
       }
     }
@@ -355,7 +311,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert3SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { panelCircle1Shape.verts } }
       }
     }
@@ -412,7 +368,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert3SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { panelCircle2Shape.verts } }
       }
     }
@@ -469,7 +425,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert3SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { panelCircle3Shape.verts } }
       }
     }
@@ -675,7 +631,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowTopA_hoverShape.verts } }
       }
     }
@@ -857,7 +813,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowBtmA_hoverShape.verts } }
       }
     }
@@ -1041,7 +997,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowTopB_hoverShape.verts } }
       }
     }
@@ -1223,7 +1179,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowBtmB_hoverShape.verts } }
       }
     }
@@ -1407,7 +1363,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowTopC_hoverShape.verts } }
       }
     }
@@ -1589,7 +1545,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowBtmC_hoverShape.verts } }
       }
     }
@@ -1773,7 +1729,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowTopD_hoverShape.verts } }
       }
     }
@@ -1955,7 +1911,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert5SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { arrowBtmD_hoverShape.verts } }
       }
     }
@@ -2025,7 +1981,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert7SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareBtm_upShape.verts } }
       }
     }
@@ -2082,7 +2038,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert8SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareBtm_hoverShape.verts } }
       }
     }
@@ -2139,7 +2095,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert9SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareBtm_downShape.verts } }
       }
     }
@@ -2494,7 +2450,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert7SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareTop_upShape.verts.vpool1 } }
       }
     }
@@ -2551,7 +2507,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert8SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareTop_hoverShape.verts.vpool2 } }
       }
     }
@@ -2608,7 +2564,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert9SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareTop_downShape.verts.vpool3 } }
       }
     }
@@ -2678,7 +2634,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert7SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareBtm_upShape.verts.vpool4 } }
       }
     }
@@ -2735,7 +2691,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert8SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareBtm_hoverShape.verts.vpool5 } }
       }
     }
@@ -2792,7 +2748,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert9SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { squareBtm_downShape.verts.vpool6 } }
       }
     }
@@ -2853,7 +2809,7 @@
         }
       }
       <Polygon> {
-        <TRef> { lambert10SG }
+        <TRef> { lambert6SG }
         <VertexRef> { 0 2 3 1 <Ref> { typeBkgShape.verts } }
       }
     }

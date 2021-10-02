@@ -1,0 +1,1 @@
+related to https://discourse.panda3d.org/t/filtermanager-issue-with-overlaying-shaders-on-2d-3d-scene/28062

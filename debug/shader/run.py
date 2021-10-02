@@ -1,27 +1,13 @@
 from direct.showbase.ShowBase import ShowBase
-from pathlib import Path
-from tkinter.filedialog import askopenfilename
-from panda3d.core import Filename
 from panda3d.core import GraphicsOutput
-from panda3d.core import CullFaceAttrib
 from panda3d.core import NodePath
 from direct.gui.DirectGui import *
-import sys, os
 import ShaderManager
 from panda3d.core import loadPrcFileData
 loadPrcFileData('', 'model-path $RESOURCE_DIR')
 loadPrcFileData('', 'default-antialias-enable 1')
 loadPrcFileData('', 'framebuffer-multisample 1')
 loadPrcFileData('', 'textures-power-2 0')
-
-#loadPrcFileData('', 'want-pstats #t')
-# We need to import the tkinter library to
-# disable the tk window that pops up.
-# We use tk for the file path selector.
-import tkinter as tk
-root = tk.Tk()
-root.withdraw()
-
 
 class generate(ShowBase):
     def __init__(self):
