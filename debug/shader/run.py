@@ -28,6 +28,7 @@ class generate(ShowBase):
         self.accept('6', base.render.show)
         self.accept('7', self.snapshot3D)
         self.accept('8', self.snapshot2D)
+        self.accept('a', base.bufferViewer.toggleEnable)
 
 
         self.accept('0', self.loadShader)
