@@ -2,6 +2,7 @@
 Note: Filters won't work properly if textures-power-2 is enabled or set to True
 
 """
+from panda3d.core import TransparencyAttrib as ta
 from direct.directnotify import DirectNotifyGlobal
 from panda3d.core import Shader
 from panda3d.core import Texture
@@ -34,8 +35,10 @@ class TestShader:
             # quad is a GeomNode (NodePath) known as filter-base-quad
             self.quad = self.manager.renderSceneInto(colortex=colortex)  # Render-to-texture our scene (3D)
             self.quad.setShader(shader) # Load shaders
-            self.quad.setShaderInput("colorTexture", colortex) # Pass our rendered scene texture for the shader to process
+            #self.quad.setShaderInput("colorTexture", colortex) # Pass our rendered scene texture for the shader to process
             self.quad.setShaderInput("enabled", (self.enabled, self.enabled))
+            #self.quad.setShaderInput("render2d", (0, 0))
+            #self.quad.setTransparency(ta.MAlpha, 1)
             self.tex3d = colortex
             # 2D texture #
             if self.manager2d is not None:
@@ -43,8 +46,10 @@ class TestShader:
                 colortex2d.setClearColor((0, 0, 0, 0))
                 self.quad2d = self.manager2d.renderSceneInto(colortex=colortex2d) # renderQuad doesn't do anything?
                 self.quad2d.setShader(shader)
-                self.quad2d.setShaderInput("colorTexture", colortex2d)
+                #self.quad2d.setShaderInput("colorTexture", colortex2d)
                 self.quad2d.setShaderInput("enabled", (self.enabled, self.enabled))
+                #self.quad2d.setShaderInput("render2d", (0, 0))
+                self.quad2d.setTransparency(ta.MAlpha, 1)
                 self.tex2d = colortex2d
             self.notify.info('Loaded default shader')
             return True
