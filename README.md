@@ -17,25 +17,6 @@ Since this is an experimental repository, everything listed here is subject to c
 * bam-flatten
     * Flattening Nodes in Models
 
-### Egg Demos
-
-* seq-2d
-
-* seq-3d
-
-* texcompression
-
-* texformat
-
-* uv-scroll
-
-* uv-wrap
-
-* misc. tools
-    * egg-list-textures
-    * egg-mkfont
-    * egg-trans
-
 ### Maya Demos
 
 * Exporting to EGG/BAM
@@ -55,7 +36,6 @@ Since this is an experimental repository, everything listed here is subject to c
 * Explore models with texture memory viewer
 
 
-
 ## Retired Sketches
 
 Some sketches turn out to evolve into complete pieces. I plan to retire sketches in favor of creating their own repository.
@@ -67,6 +47,10 @@ Script to build an organized version of the TTO asset pipeline (texture end)
 ### Clothing Previewer/Renderer
 Load in clothing textures and take transparent render screenshots to use for graphic design/promotional purposes
 [**Moved Here**](https://github.com/loonaticx/ClothingPreview)
+
+### Egg Demos
+Various assortment of egg demos, including egg attributes and egg tools.
+[**Moved Here**](https://github.com/loonaticx/egg-demos)
 
 
 ## Useful Links
