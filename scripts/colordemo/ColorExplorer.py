@@ -47,6 +47,7 @@ class ColorExplorer(ShowBase):
 
         self.accept('c', self.clearScene)
         self.accept('t', self.toggleTexture)
+        self.accept('p', self.printColors)
 
 
     def loadGUI(self):
@@ -133,6 +134,14 @@ class ColorExplorer(ShowBase):
         if self.model is not None:
             self.model.removeNode()
             self.model = None
+    
+    def printColors(self):
+        valueNormal = (self.colorR, self.colorB, self.colorG, self.colorA)
+        valueDec = (self.colorR*255, self.colorB*255, self.colorG*255, self.colorA*255)
+        valueHex = tuple(valueDec[0:3])
+        print("Normalized: " + str(valueNormal))
+        print("RGB Decimal: " + str(valueDec))
+        print("Hex: %02x%02x%02x" % (int(valueHex[0]), int(valueHex[1]), int(valueHex[2])))
 
 
 app = ColorExplorer()

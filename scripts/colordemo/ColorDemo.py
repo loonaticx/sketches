@@ -43,6 +43,8 @@ class ColorDemo(ShowBase):
         self.accept('1', self.toggleTexture)
         self.accept('2', self.clearColor)
         self.accept('3', self.clearColorScale)
+        
+        self.accept('p', self.printColors)
 
 
         self.accept('arrow_left', self.rotateH, [-5])
@@ -158,6 +160,14 @@ class ColorDemo(ShowBase):
         self.cubeModel2.setP(self.currentP)
         self.cubeModel3.setP(self.currentP)
         self.cubeModel4.setP(self.currentP)
+
+    def printColors(self):
+        valueNormal = (self.colorR, self.colorB, self.colorG, self.colorA)
+        valueDec = (self.colorR*255, self.colorB*255, self.colorG*255, self.colorA*255)
+        valueHex = tuple(valueDec[0:3])
+        print("Normalized: " + str(valueNormal))
+        print("RGB Decimal: " + str(valueDec))
+        print("Hex: %02x%02x%02x" % (int(valueHex[0]), int(valueHex[1]), int(valueHex[2])))
 
 
 app = ColorDemo()
