@@ -17,7 +17,9 @@ from direct.gui.DirectGui import *
 import sys, os
 
 from panda3d.core import loadPrcFileData
+
 loadPrcFileData('', 'model-path $DEV_P3D')
+
 
 # I can probably make this way better if I copy what I did for the explore script but w/e
 class ColorDemo(ShowBase):
@@ -43,9 +45,8 @@ class ColorDemo(ShowBase):
         self.accept('1', self.toggleTexture)
         self.accept('2', self.clearColor)
         self.accept('3', self.clearColorScale)
-        
-        self.accept('p', self.printColors)
 
+        self.accept('p', self.printColors)
 
         self.accept('arrow_left', self.rotateH, [-5])
         self.accept('arrow_left-repeat', self.rotateH, [-5])
@@ -56,14 +57,13 @@ class ColorDemo(ShowBase):
         self.accept('arrow_down', self.rotateP, [-5])
         self.accept('arrow_down-repeat', self.rotateP, [-5])
 
-
-
     """
     cube.egg = Default primitive cube, no vertex color applied
     cube2.egg = Default primitive cube, but 5 (out of 6) faces have been applied vertex color.
     Two faces may look identical in color, one has no vertex painting applied & one has white vertex painting applied. Also double-sided.
     No material is set on either of these.
     """
+
     def loadDemo(self):
         cube1 = render.attachNewNode('cube1')
         cube2 = render.attachNewNode('cube2')
@@ -75,7 +75,6 @@ class ColorDemo(ShowBase):
         self.cubeModel.setPosHpr(-1.00, 1.45, 0.65, self.currentH, self.currentP, 0)
         self.cubeModel2 = self.cubeModel.copyTo(cube2)
         self.cubeModel2.setPosHpr(1.00, 1.45, 0.65, self.currentH, self.currentP, 0)
-
 
         self.cubeModel3 = loader.loadModel("cube2.egg")
         self.cubeModel3.reparentTo(cube3)
@@ -89,30 +88,38 @@ class ColorDemo(ShowBase):
         buttonbase_xcoord = 0
         buttonbase_ycoord = -0.25
 
-        self.buttonColorR = DirectSlider(value=self.colorR,
-                                pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 4),
-                                range=(0, 1),
-                                frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                command=self.changeColorValue)
+        self.buttonColorR = DirectSlider(
+            value = self.colorR,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 4),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
-        self.buttonColorB = DirectSlider(value=self.colorG,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 5),
-                                  range=(0, 1),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeColorValue)
+        self.buttonColorB = DirectSlider(
+            value = self.colorG,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 5),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
-        self.buttonColorG = DirectSlider(value=self.colorB,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 6),
-                                  range=(0, 1),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeColorValue)
+        self.buttonColorG = DirectSlider(
+            value = self.colorB,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 6),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
-        # The reason why the 4th (alpha) slider doesn't do anything right now is because it is using RGB color mode & not RGBA
-        self.buttonColorA = DirectSlider(value=self.colorA,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 7),
-                                  range=(0, 1),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeColorValue)
+        # The 4th (alpha) slider doesn't do anything right now is because it is using RGB color mode & not RGBA
+        self.buttonColorA = DirectSlider(
+            value = self.colorA,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 7),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
     def clearColorScale(self):
         self.cubeModel.clearColorScale()
@@ -163,7 +170,7 @@ class ColorDemo(ShowBase):
 
     def printColors(self):
         valueNormal = (self.colorR, self.colorB, self.colorG, self.colorA)
-        valueDec = (self.colorR*255, self.colorB*255, self.colorG*255, self.colorA*255)
+        valueDec = (self.colorR * 255, self.colorB * 255, self.colorG * 255, self.colorA * 255)
         valueHex = tuple(valueDec[0:3])
         print("Normalized: " + str(valueNormal))
         print("RGB Decimal: " + str(valueDec))

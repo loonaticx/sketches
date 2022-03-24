@@ -22,7 +22,6 @@ class ShaderManager:
             self.notify.warning("Cannot be initialized with texture-power-2 config enabled.")
             return
 
-
         """
         The FilterManager constructor requires you to provide a window which is rendering a scene,
         and the camera which is used by that window to render the scene.
@@ -40,6 +39,3 @@ class ShaderManager:
     def initTestShader(self, parent):
         import TestShader as ts
         return ts.TestShader(parent, self.manager, self.manager2d)
-
-
-

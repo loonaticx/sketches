@@ -7,16 +7,17 @@ from panda3d.core import TextureStage, TextureAttrib, TexGenAttrib
 from direct.gui.DirectGui import *
 import sys, os
 
-
 from panda3d.core import loadPrcFileData
+
 loadPrcFileData('', 'model-path $DEV_P3D')
 
-# We need to import the tkinter library to
-# disable the tk window that pops up.
+# We need to import the tkinter library to disable the tk window that pops up.
 # We use tk for the file path selector.
 import tkinter as tk
+
 root = tk.Tk()
 root.withdraw()
+
 
 # todo: have slider to change texscale? <-- onscreen text for that
 # https://docs.panda3d.org/1.10/python/programming/texturing/3d-textures#d-textures
@@ -30,7 +31,7 @@ class demo(ShowBase):
         ShowBase.__init__(self)
         base.cam.setPos(0, -4, 0)
         self.base = ShowBase
-        self.texScale = 0.2 # default
+        self.texScale = 0.2  # default
         self.texPosU = 0.44
         self.texPosV = 0.5
         self.texPosW = 0.2
@@ -39,9 +40,7 @@ class demo(ShowBase):
         self.circleModel = loader.loadModel('btn/tt_m_gui_mat_nameShop.egg')
         self.loadGUI()
 
-
     def loadDemo(self):
-
         self.planeModel = loader.loadModel("plane.egg")
         self.planeModel.reparentTo(render)
         self.planeModel.setTexGen(TextureStage.getDefault(), TexGenAttrib.MWorldPosition)
@@ -73,7 +72,6 @@ class demo(ShowBase):
 
         self.printInfo()
 
-
     def loadGUI(self):
         titleHeight = 0.61
         textStartHeight = 0.45
@@ -85,30 +83,43 @@ class demo(ShowBase):
         button_textpos = (0, -0.02)
         options_text_scale = 0.052
 
-        self.texScaleButton = DirectSlider(value=self.texScale,
-                                          pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 4),
-                                          thumb_relief=None, range=(0, 1), thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                          frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                          command=self.changeValue)
+        self.texScaleButton = DirectSlider(
+            value = self.texScale,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 4),
+            thumb_relief = None,
+            range = (0, 1),
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeValue
+        )
 
-        self.texPosUButton = DirectSlider(value=self.texPosU,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 5),
-                                  thumb_relief=None, range=(0, 1), thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeValue)
+        self.texPosUButton = DirectSlider(
+            value = self.texPosU,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 5),
+            thumb_relief = None,
+            range = (0, 1),
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeValue
+        )
 
-        self.texPosVButton = DirectSlider(value=self.texPosV,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 6),
-                                  thumb_relief=None, range=(0, 1), thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeValue)
+        self.texPosVButton = DirectSlider(
+            value = self.texPosV,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 6),
+            thumb_relief = None, range = (0, 1),
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeValue
+        )
 
-        self.texPosWButton = DirectSlider(value=self.texPosW,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 7),
-                                  thumb_relief=None, range=(0, 1), thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeValue)
-
+        self.texPosWButton = DirectSlider(
+            value = self.texPosW,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - textRowHeight * 7),
+            thumb_relief = None, range = (0, 1),
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeValue
+        )
 
     def changeValue(self):
         print(self.texScaleButton['value'])
@@ -129,9 +140,10 @@ class demo(ShowBase):
         print("Number of Texture Stages")
         print(self.planeModel.findAllTextureStages())
         print("---------------------------------------")
-        #print("write()")
-        #print(self.planeModel.getNumTextureStages())
-        #print("---------------------------------------")
+        # print("write()")
+        # print(self.planeModel.getNumTextureStages())
+        # print("---------------------------------------")
+
 
 app = demo()
 app.run()

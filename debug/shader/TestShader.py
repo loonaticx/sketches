@@ -7,10 +7,11 @@ from direct.directnotify import DirectNotifyGlobal
 from panda3d.core import Shader
 from panda3d.core import Texture
 
+
 class TestShader:
     notify = DirectNotifyGlobal.directNotify.newCategory('TestShader')
 
-    def __init__(self, parent, manager, manager2d=None): # parent=aspect2d
+    def __init__(self, parent, manager, manager2d = None):  # parent=aspect2d
         self.parent = parent
         self.manager = manager
         self.manager2d = manager2d
@@ -33,22 +34,22 @@ class TestShader:
         if shader is not None:
             colortex = Texture()  # Create an empty Texture object
             # quad is a GeomNode (NodePath) known as filter-base-quad
-            self.quad = self.manager.renderSceneInto(colortex=colortex)  # Render-to-texture our scene (3D)
-            self.quad.setShader(shader) # Load shaders
-            #self.quad.setShaderInput("colorTexture", colortex) # Pass our rendered scene texture for the shader to process
+            self.quad = self.manager.renderSceneInto(colortex = colortex)  # Render-to-texture our scene (3D)
+            self.quad.setShader(shader)  # Load shaders
+            # self.quad.setShaderInput("colorTexture", colortex) # Pass our rendered scene texture for the shader to process
             self.quad.setShaderInput("enabled", (self.enabled, self.enabled))
-            #self.quad.setShaderInput("render2d", (0, 0))
-            #self.quad.setTransparency(ta.MAlpha, 1)
+            # self.quad.setShaderInput("render2d", (0, 0))
+            # self.quad.setTransparency(ta.MAlpha, 1)
             self.tex3d = colortex
             # 2D texture #
             if self.manager2d is not None:
                 colortex2d = Texture()
                 colortex2d.setClearColor((0, 0, 0, 0))
-                self.quad2d = self.manager2d.renderSceneInto(colortex=colortex2d) # renderQuad doesn't do anything?
+                self.quad2d = self.manager2d.renderSceneInto(colortex = colortex2d)  # renderQuad doesn't do anything?
                 self.quad2d.setShader(shader)
-                #self.quad2d.setShaderInput("colorTexture", colortex2d)
+                # self.quad2d.setShaderInput("colorTexture", colortex2d)
                 self.quad2d.setShaderInput("enabled", (self.enabled, self.enabled))
-                #self.quad2d.setShaderInput("render2d", (0, 0))
+                # self.quad2d.setShaderInput("render2d", (0, 0))
                 self.quad2d.setTransparency(ta.MAlpha, 1)
                 self.tex2d = colortex2d
             self.notify.info('Loaded default shader')
@@ -68,4 +69,3 @@ class TestShader:
 
     def getQuad2D(self):
         return self.quad2d
-

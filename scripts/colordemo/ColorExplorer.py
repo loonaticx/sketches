@@ -20,14 +20,17 @@ from direct.gui.DirectGui import *
 import sys, os
 
 from panda3d.core import loadPrcFileData
+
 loadPrcFileData('', 'model-path $RESOURCE_DIR')
 
-# We need to import the tkinter library to
-# disable the tk window that pops up.
+# We need to import the tkinter library to disable the tk window that pops up.
 # We use tk for the file path selector.
 import tkinter as tk
+
 root = tk.Tk()
 root.withdraw()
+
+
 class ColorExplorer(ShowBase):
     def __init__(self):
         ShowBase.__init__(self)
@@ -35,12 +38,12 @@ class ColorExplorer(ShowBase):
         self.model = None
         self.defaultCamPos = base.cam.getPos()
 
-        self.colorScale = [1] # default we will use setColorScale
+        self.colorScale = [1]  # default we will use setColorScale
 
         self.colorR = 1
         self.colorG = 1
         self.colorB = 1
-        self.colorA = 1 # If a model's material only uses RGB texture mode this won't affect anything
+        self.colorA = 1  # If a model's material only uses RGB texture mode this won't affect anything
         base.setSceneGraphAnalyzerMeter(False)
 
         self.loadGUI()
@@ -49,45 +52,64 @@ class ColorExplorer(ShowBase):
         self.accept('t', self.toggleTexture)
         self.accept('p', self.printColors)
 
-
     def loadGUI(self):
-        self.topButton = DirectButton(text=("Load model"),
-                 scale=0.05, pos=(0, 0, -0.90), parent=base.aspect2d, command=self.loadFile)
+        self.topButton = DirectButton(
+            text = ("Load model"),
+            scale = 0.05, pos = (0, 0, -0.90), parent = base.aspect2d,
+            command = self.loadFile)
 
         buttonSpacing = 0.1
         buttonbase_xcoord = -1.4
         buttonbase_ycoord = -0.20
 
+        self.buttonColorR = DirectSlider(
+            value = self.colorR,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 4),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
-        self.buttonColorR = DirectSlider(value=self.colorR,
-                                pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 4),
-                                range=(0, 1),
-                                frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                command=self.changeColorValue)
+        self.buttonColorB = DirectSlider(
+            value = self.colorG,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 5),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
-        self.buttonColorB = DirectSlider(value=self.colorG,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 5),
-                                  range=(0, 1),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeColorValue)
+        self.buttonColorG = DirectSlider(
+            value = self.colorB,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 6),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
-        self.buttonColorG = DirectSlider(value=self.colorB,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 6),
-                                  range=(0, 1),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeColorValue)
-
-        self.buttonColorA = DirectSlider(value=self.colorA,
-                                  pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 7),
-                                  range=(0, 1),
-                                  frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                  command=self.changeColorValue)
+        self.buttonColorA = DirectSlider(
+            value = self.colorA,
+            pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 7),
+            range = (0, 1),
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.changeColorValue
+        )
 
         self.buttonColorMode = [
-        DirectRadioButton(text='setColorScale', variable=self.colorScale, value=[1],
-                        scale=0.05, pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 3), command=self.changeColorValue),
-        DirectRadioButton(text='setColor', variable=self.colorScale, value=[0],
-                        scale=0.05, pos=(buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 2), command=self.changeColorValue)
+            DirectRadioButton(
+                text = 'setColorScale',
+                variable = self.colorScale,
+                value = [1],
+                scale = 0.05, pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 3),
+                command = self.changeColorValue
+            ),
+            DirectRadioButton(
+                text = 'setColor',
+                variable = self.colorScale,
+                value = [0],
+                scale = 0.05,
+                pos = (buttonbase_xcoord + 0.1, 0.0, buttonbase_ycoord - buttonSpacing * 2),
+                command = self.changeColorValue
+            )
         ]
         for button in self.buttonColorMode:
             button.setOthers(self.buttonColorMode)
@@ -134,10 +156,10 @@ class ColorExplorer(ShowBase):
         if self.model is not None:
             self.model.removeNode()
             self.model = None
-    
+
     def printColors(self):
         valueNormal = (self.colorR, self.colorB, self.colorG, self.colorA)
-        valueDec = (self.colorR*255, self.colorB*255, self.colorG*255, self.colorA*255)
+        valueDec = (self.colorR * 255, self.colorB * 255, self.colorG * 255, self.colorA * 255)
         valueHex = tuple(valueDec[0:3])
         print("Normalized: " + str(valueNormal))
         print("RGB Decimal: " + str(valueDec))

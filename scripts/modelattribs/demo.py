@@ -9,6 +9,7 @@ from direct.gui.DirectGui import *
 import sys, os
 
 from panda3d.core import loadPrcFileData
+
 loadPrcFileData('', 'model-path $RESOURCE_DIR')
 loadPrcFileData('', 'screenshot-extension png')
 
@@ -16,12 +17,13 @@ loadPrcFileData('', 'screenshot-extension png')
 # I recommend looking at my "pstats" demo if you're unsure what pstats will do
 # loadPrcFileData('', 'want-pstats #t')
 
-# We need to import the tkinter library to
-# disable the tk window that pops up.
+# We need to import the tkinter library to disable the tk window that pops up.
 # We use tk for the file path selector.
 import tkinter as tk
+
 root = tk.Tk()
 root.withdraw()
+
 
 class generate(ShowBase):
     def __init__(self):
@@ -47,14 +49,13 @@ class generate(ShowBase):
 
         self.xyz = None
 
-
         # Todo later, might do this in a different script
-        #self.bloomEnabled = False
-        #self.HDREnabled = False
-        #self.ambientOcclusionEnabled = False
-        #self.cartoonInkEnabled = False
-        #self.sRGBEnabled = False
-        #self.invertedEnabled = False
+        # self.bloomEnabled = False
+        # self.HDREnabled = False
+        # self.ambientOcclusionEnabled = False
+        # self.cartoonInkEnabled = False
+        # self.sRGBEnabled = False
+        # self.invertedEnabled = False
 
         self.accept('o', base.oobe)
 
@@ -67,18 +68,16 @@ class generate(ShowBase):
         self.accept('c', self.clearScene)
         self.accept('s', base.screenshot)
 
-
         self.accept('1', base.toggleShowVertices)
         self.accept('2', base.toggleWireframe)
         self.accept('3', base.toggleTexture)
         self.accept('4', self.toggleVertexPainting)
         self.accept('5', base.toggleBackface)
         self.accept('6', self.toggleFrontfaceCulling)
-        #self.accept('7', self.toggleTightBounds) # todo: fix
+        # self.accept('7', self.toggleTightBounds) # todo: fix
         self.accept('7', self.toggleCollisionNodes)
         self.accept('o', self.toggleOccluderNodes)
         self.accept('p', self.toggleModelNodes)
-
 
     def enableFlatten(self):
         if self.model is not None:
@@ -89,16 +88,21 @@ class generate(ShowBase):
         else:
             return False
 
-
     def loadGUI(self):
-        self.topButton = DirectButton(text=("Load model"),
-                 scale=0.05, pos=(0, 0, -0.90), parent=base.aspect2d, command=self.loadFile)
+        self.topButton = DirectButton(
+            text = ("Load model"),
+            scale = 0.05,
+            pos = (0, 0, -0.90),
+            parent = base.aspect2d,
+            command = self.loadFile
+        )
 
     def browseModel(self):
         path = Path(askopenfilename(filetypes = (
             ("Image Files", "*.egg;*.bam"),
             ("EGG", "*.egg"),
-            ("BAM", "*.bam"))))
+            ("BAM", "*.bam")
+        )))
         return path
 
     def loadFile(self):
@@ -157,7 +161,6 @@ class generate(ShowBase):
             render.clearAttrib(CullFaceAttrib)
             self.frontfaceCullingEnabled = False
 
-
     def toggleTightBounds(self):
         if not self.tightboundsToggled or self.boundsToggled:
             for node in render.getChild(0).getChildren():
@@ -189,7 +192,7 @@ class generate(ShowBase):
             for node in render.findAllMatches('**/+OccluderNode'):
                 self.occluderExist = True
                 self.occludersEnabled = True
-                node.show() # i haven't seen an occluder node before so idk if they have any geom
+                node.show()  # i haven't seen an occluder node before so idk if they have any geom
                 print("Found occluder node: {}".format(node))
                 print("Occluders enabled")
             if not self.occluderExist:
@@ -205,10 +208,10 @@ class generate(ShowBase):
             for node in render.findAllMatches('**/+ModelNode'):
                 self.modelNodesExist = True
                 self.modelNodesEnabled = True
-                self.xyz = self.XYZAxis.instanceTo(node) #copyTo bad
+                self.xyz = self.XYZAxis.instanceTo(node)  # copyTo bad
                 self.xyz.setPos(node.getPos())
                 self.xyz.setHpr(node.getHpr())
-                node.show() # most of the time there's no geometry.
+                node.show()  # most of the time there's no geometry.
                 print("Found ModelNode: {} at pos:{} hpr:{}".format(node, node.getPos(), node.getHpr()))
                 print("ModelNodes visible")
             if not self.modelNodesExist:
@@ -224,7 +227,7 @@ class generate(ShowBase):
 
     def listNodes(self):
         if self.model is None:
-            return # can't return nodes of something that doesn't exist
+            return  # can't return nodes of something that doesn't exist
         print()
         print("-x-x-x-x-x-x-x-x-x-x-x-x-")
         self.model.ls()

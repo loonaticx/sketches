@@ -10,6 +10,7 @@ Note: Filters won't work properly if textures-power-2 is enabled or set to True
 """
 from direct.filter.FilterManager import FilterManager
 
+
 class ToontownLUTManager():
     def __init__(self):
         self.manager = FilterManager(base.win, base.cam)
@@ -30,17 +31,17 @@ class ToontownLUTManager():
 
     def setupLUT(self, lut_file):
         colortex = Texture()
-        self.quad = self.manager.renderSceneInto(colortex=colortex)
+        self.quad = self.manager.renderSceneInto(colortex = colortex)
         self.quad.setShader(Shader.load(Shader.SLGLSL, self.vertexShader, self.fragmentShader))
         self.quad.setShaderInput("colortex", colortex)
-        lut=loader.loadTexture(lut_file)
+        lut = loader.loadTexture(lut_file)
         lut.setFormat(Texture.F_rgb16)
         lut.setWrapU(Texture.WMClamp)
         lut.setWrapV(Texture.WMClamp)
         self.quad.setShaderInput("lut", lut)
 
-    def loadTUL(self, lut_file, format=Texture.F_rgb):
-        lut=loader.loadTexture(lut_file)
+    def loadTUL(self, lut_file, format = Texture.F_rgb):
+        lut = loader.loadTexture(lut_file)
         lut.setFormat(Texture.F_rgb16)
         lut.setWrapU(Texture.WMClamp)
         lut.setWrapV(Texture.WMClamp)
@@ -51,6 +52,7 @@ class ToontownLUTManager():
 
     def cleanup(self):
         self.manager.cleanup()
+
 
 """
 from toontown.shader import ToontownLUTManager

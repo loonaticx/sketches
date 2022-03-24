@@ -7,14 +7,16 @@ import sys, os
 import VisualizeScene
 
 from panda3d.core import loadPrcFileData
+
 loadPrcFileData('', 'model-path $RESOURCE_DIR')
 
-# We need to import the tkinter library to
-# disable the tk window that pops up.
+# We need to import the tkinter library to disable the tk window that pops up.
 # We use tk for the file path selector.
 import tkinter as tk
+
 root = tk.Tk()
 root.withdraw()
+
 
 class VisualizeDemo(ShowBase):
     def __init__(self):
@@ -23,10 +25,11 @@ class VisualizeDemo(ShowBase):
         self.model = None
         vs = VisualizeScene.VisualizeScene()
         self.loadGUI()
-        #vs.showSceneGraph(base.render)
+        # vs.showSceneGraph(base.render)
         self.accept('1', vs.showSceneGraph, [base.render])
 
         # Sample usage
+
     def loadSample(self):
         child1 = [root.attach_new_node(f'child{i}') for i in range(10)]
         for child in child1:
@@ -37,14 +40,20 @@ class VisualizeDemo(ShowBase):
             child.setHpr(*np.random.rand(3))
 
     def loadGUI(self):
-        self.topButton = DirectButton(text=("Load model"),
-                 scale=0.05, pos=(0, 0, -0.90), parent=base.aspect2d, command=self.loadFile)
+        self.topButton = DirectButton(
+            text = ("Load model"),
+            scale = 0.05,
+            pos = (0, 0, -0.90),
+            parent = base.aspect2d,
+            command = self.loadFile
+        )
 
     def browseModel(self):
         path = Path(askopenfilename(filetypes = (
             ("Panda3D Model Files", "*.egg;*.bam"),
             ("EGG", "*.egg"),
-            ("BAM", "*.bam"))))
+            ("BAM", "*.bam")
+        )))
 
         return path
 
@@ -68,6 +77,7 @@ class VisualizeDemo(ShowBase):
         if self.model is not None:
             self.model.removeNode()
             self.model = None
+
 
 app = VisualizeDemo()
 app.run()

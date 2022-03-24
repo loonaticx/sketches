@@ -17,6 +17,7 @@ from direct.gui.OnscreenText import OnscreenText
   https://gist.github.com/loonaticx/7c124790371cf3c5ac0b66c9da7c3765
 """
 
+
 # https://docs.panda3d.org/1.10/python/_modules/direct/filter/CommonFilters
 # is it possible to render a new window & place the gui there instead of the model viewport window?
 # alternatively just have hotkeys/something to toggle certain gui since screen real estate is p tight
@@ -25,8 +26,14 @@ class ToontownShaderManager(DirectFrame):
 
     def __init__(self, parent):
         self._parent = parent
-        DirectFrame.__init__(self, parent=self._parent, relief=None, pos=(0.0, 0.0, 0.0), scale=(1.0, 1.0, 1.0))
-        self.filter = CommonFilters(base.win, base.cam) # Only affects primary window
+        DirectFrame.__init__(
+            self,
+            parent = self._parent,
+            relief = None,
+            pos = (0.0, 0.0, 0.0),
+            scale = (1.0, 1.0, 1.0)
+        )
+        self.filter = CommonFilters(base.win, base.cam)  # Only affects primary window
 
         # Ambient Occlusion
         self.samples = 0
@@ -35,7 +42,7 @@ class ToontownShaderManager(DirectFrame):
         self.strength = 0.0
 
         # Blur/Sharpen
-        self.blur = 1.0 # this is normal value, 0.0 blurs it
+        self.blur = 1.0  # this is normal value, 0.0 blurs it
 
         # Cartoon Ink
         self.cartoonSep = 0.0
@@ -68,7 +75,6 @@ class ToontownShaderManager(DirectFrame):
         self.loadGUI()
         # self.newWindow() # Disabled for now
 
-
     def loadGUI(self):
         self.textRowHeight = 0.2
         self.buttonbase_xcoord = 1.4
@@ -79,7 +85,6 @@ class ToontownShaderManager(DirectFrame):
         self.loadCartoonInkGUI()
         self.loadHotkeys()
 
-
     def loadHotkeys(self):
         # for now instead of gui buttons i'ma just put the bool filters as hotkeys
         self.accept('4', self.__toggleHDR)
@@ -88,120 +93,166 @@ class ToontownShaderManager(DirectFrame):
         self.accept('7', self.__toggleHalfPixelShift)
         self.accept('8', self.__toggleViewGlow)
 
-
     def loadAmbientOcclusionGUI(self):
-        self.numSamples = DirectSlider(parent=self, value=self.samples,
-                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, self.buttonbase_ycoord - self.textRowHeight * 3.5),
-                                              thumb_relief=None, range=(0, 32), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeAOValue)
-                                              #command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
+        self.numSamples = DirectSlider(
+            parent = self, value = self.samples,
+            pos = (self.buttonbase_xcoord + 0.1, 0.0,
+                   self.buttonbase_ycoord - self.textRowHeight * 3.5),
+            thumb_relief = None, range = (0, 32),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture,
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeAOValue
+        )
+        # command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
         self.numSamples.setScale(0.5)
         self.numSamples.setTransparency(True)
-        self.numSamplesText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 3.2), scale=0.05, text="AO Sample Count = {}".format(self.samples), style=5, mayChange=True)
+        self.numSamplesText = OnscreenText(
+            pos = (self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 3.2),
+            scale = 0.05,
+            text = "AO Sample Count = {}".format(self.samples),
+            style = 5,
+            mayChange = True
+        )
 
-
-        self.numRadius = DirectSlider(parent=self, value=self.radius,
-                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 4.5)),
-                                              thumb_relief=None, range=(0, 1), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeAOValue)
+        self.numRadius = DirectSlider(
+            parent = self, value = self.radius,
+            pos = (self.buttonbase_xcoord + 0.1, 0.0,
+                   (self.buttonbase_ycoord - self.textRowHeight * 4.5)),
+            thumb_relief = None, range = (0, 1),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeAOValue)
 
         self.numRadius.setScale(0.5)
         self.numRadius.setTransparency(True)
-        self.numRadiusText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 4.2), scale=0.05, text="AO Radius = {}".format(str(self.radius)), style=5, mayChange=True)
+        self.numRadiusText = OnscreenText(
+            pos = (self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 4.2), scale = 0.05,
+            text = "AO Radius = {}".format(str(self.radius)), style = 5, mayChange = True)
 
-
-
-        self.numAmount = DirectSlider(parent=self, value=self.amount,
-                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 5.5)),
-                                              thumb_relief=None, range=(0, 64), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeAOValue)
+        self.numAmount = DirectSlider(
+            parent = self, value = self.amount,
+            pos = (self.buttonbase_xcoord + 0.1, 0.0,
+                   (self.buttonbase_ycoord - self.textRowHeight * 5.5)),
+            thumb_relief = None, range = (0, 64),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeAOValue)
 
         self.numAmount.setScale(0.5)
         self.numAmount.setTransparency(True)
-        self.numAmountText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 5.2), scale=0.05, text="AO Amount = {}".format(self.amount), style=5, mayChange=True)
+        self.numAmountText = OnscreenText(
+            pos = (self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 5.2), scale = 0.05,
+            text = "AO Amount = {}".format(self.amount),
+            style = 5,
+            mayChange = True
+        )
 
-
-        self.numStrength = DirectSlider(parent=self, value=self.strength,
-                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 6.5)),
-                                              thumb_relief=None, range=(0, 0.1), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeAOValue)
+        self.numStrength = DirectSlider(
+            parent = self, value = self.strength,
+            pos = (self.buttonbase_xcoord + 0.1, 0.0,
+                   (self.buttonbase_ycoord - self.textRowHeight * 6.5)),
+            thumb_relief = None, range = (0, 0.1),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeAOValue)
 
         self.numStrength.setScale(0.5)
         self.numStrength.setTransparency(True)
-        self.numStrengthText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 6.2), scale=0.05, text="AO Strength = {}".format(self.strength), style=5, mayChange=True)
+        self.numStrengthText = OnscreenText(
+            pos = (self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 6.2)
+            , scale = 0.05,
+            text = "AO Strength = {}".format(self.strength),
+            style = 5,
+            mayChange = True
+        )
 
     def loadCartoonInkGUI(self):
-        self.cSep = DirectSlider(parent=self, value=self.cartoonSep,
-                                              pos=(-self.buttonbase_xcoord + 0.1, 0.0, self.buttonbase_ycoord - self.textRowHeight * 2.5),
-                                              thumb_relief=None, range=(0, 32), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeCartoon)
-                                              #command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
+        self.cSep = DirectSlider(
+            parent = self,
+            value = self.cartoonSep,
+            pos = (
+                -self.buttonbase_xcoord + 0.1, 0.0, self.buttonbase_ycoord - self.textRowHeight * 2.5),
+            thumb_relief = None, range = (0, 32),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeCartoon)
+        # command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
         self.cSep.setScale(0.5)
         self.cSep.setTransparency(True)
 
-        self.cRed = DirectSlider(parent=self, value=self.cartoonR,
-                                              pos=(-self.buttonbase_xcoord + 0.1, 0.0, self.buttonbase_ycoord - self.textRowHeight * 3.5),
-                                              thumb_relief=None, range=(0, 1), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeCartoon)
-                                              #command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
+        self.cRed = DirectSlider(
+            parent = self,
+            value = self.cartoonR,
+            pos = (
+                -self.buttonbase_xcoord + 0.1, 0.0, self.buttonbase_ycoord - self.textRowHeight * 3.5),
+            thumb_relief = None, range = (0, 1),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeCartoon)
+        # command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
         self.cRed.setScale(0.5)
         self.cRed.setTransparency(True)
 
-        self.cBlue = DirectSlider(parent=self, value=self.cartoonB,
-                                              pos=(-self.buttonbase_xcoord + 0.1, 0.0, self.buttonbase_ycoord - self.textRowHeight * 4.5),
-                                              thumb_relief=None, range=(0, 1), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeCartoon)
-                                              #command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
+        self.cBlue = DirectSlider(
+            parent = self, value = self.cartoonB,
+            pos = (-self.buttonbase_xcoord + 0.1, 0.0,
+                   self.buttonbase_ycoord - self.textRowHeight * 4.5),
+            thumb_relief = None, range = (0, 1),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeCartoon)
+        # command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
         self.cBlue.setScale(0.5)
         self.cBlue.setTransparency(True)
 
-        self.cGreen = DirectSlider(parent=self, value=self.cartoonG,
-                                              pos=(-self.buttonbase_xcoord + 0.1, 0.0, self.buttonbase_ycoord - self.textRowHeight * 5.5),
-                                              thumb_relief=None, range=(0, 1), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeCartoon)
-                                              #command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
+        self.cGreen = DirectSlider(
+            parent = self, value = self.cartoonG,
+            pos = (-self.buttonbase_xcoord + 0.1, 0.0,
+                   self.buttonbase_ycoord - self.textRowHeight * 5.5),
+            thumb_relief = None, range = (0, 1),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeCartoon)
+        # command=self.__changeAOValue(self.samples, self.radius, self.amount, self.strength))
         self.cGreen.setScale(0.5)
         self.cGreen.setTransparency(True)
 
     def loadBlurGUI(self):
-        self.numBlur = DirectSlider(parent=self, value=self.blur, # pos=(0.0, 0.0, 0.0), # for new window
-                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 0.5)),
-                                              thumb_relief=None, range=(-10, 10), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeBlur)
+        self.numBlur = DirectSlider(
+            parent = self,
+            value = self.blur,
+            # pos=(0.0, 0.0, 0.0), # for new window
+            pos = (self.buttonbase_xcoord + 0.1, 0.0,
+                   (self.buttonbase_ycoord - self.textRowHeight * 0.5)),
+            thumb_relief = None, range = (-10, 10),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture, frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeBlur)
         self.numBlur.setScale(0.5)
         self.numBlur.setTransparency(True)
-        self.numBlurText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 0.2), scale=0.05, text="Blur Amount = {}".format(self.blur), style=5, mayChange=True)
-
+        self.numBlurText = OnscreenText(
+            pos = (self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 0.2), scale = 0.05,
+            text = "Blur Amount = {}".format(self.blur), style = 5, mayChange = True)
 
     def loadExposureGUI(self):
-        self.numExposure = DirectSlider(parent=self, value=self.exposure,
-                                              pos=(self.buttonbase_xcoord + 0.1, 0.0, (self.buttonbase_ycoord - self.textRowHeight * 2.2)),
-                                              thumb_relief=None, range=(0, 5), #self.SAMPLES_MAX
-                                              thumb_geom=self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
-                                              frameTexture=self.barTexture, frameSize=(-0.5, 0.5, -0.08, 0.08),
-                                              command=self.__changeExposure)
+        self.numExposure = DirectSlider(
+            parent = self,
+            value = self.exposure,
+            pos = (self.buttonbase_xcoord + 0.1, 0.0,
+                   (self.buttonbase_ycoord - self.textRowHeight * 2.2)),
+            thumb_relief = None,
+            range = (0, 5),  # self.SAMPLES_MAX
+            thumb_geom = self.circleModel.find('**/tt_t_gui_mat_namePanelCircle'),
+            frameTexture = self.barTexture,
+            frameSize = (-0.5, 0.5, -0.08, 0.08),
+            command = self.__changeExposure
+        )
         self.numExposure.setScale(0.5)
         self.numExposure.setTransparency(True)
-        self.numExposureText = OnscreenText(pos=(self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 1.9), scale=0.05, text="Exposure Amount = {}".format(self.blur), style=5, mayChange=True)
-
+        self.numExposureText = OnscreenText(
+            pos = (self.buttonbase_xcoord + 0.1, self.buttonbase_ycoord - self.textRowHeight * 1.9), scale = 0.05,
+            text = "Exposure Amount = {}".format(self.blur), style = 5, mayChange = True)
 
     def printValue(self):
         print(self.numSamples['value'])
@@ -216,7 +267,7 @@ class ToontownShaderManager(DirectFrame):
         self.cartoonB = b
         g = self.cGreen['value']
         self.cartoonG = g
-        self.filter.setCartoonInk(s, (r, g, b, 1)) # a doesn't change
+        self.filter.setCartoonInk(s, (r, g, b, 1))  # a doesn't change
 
     def __changeBlur(self):
         self.filter.delBlurSharpen()
@@ -234,29 +285,31 @@ class ToontownShaderManager(DirectFrame):
         s = self.numSamples['value']
         self.samples = s
         self.numSamplesText.setText("AO Sample Count = {}".format(s))
-        if(s == 0):
+        if (s == 0):
             return
 
         r = self.numRadius['value']
         self.radius = r
         self.numRadiusText.setText("AO Radius = {}".format(r))
-        if(r == 0):
+        if (r == 0):
             return
 
         a = self.numAmount['value']
         self.amount = a
         self.numAmountText.setText("AO Amount = {}".format(a))
-        if(a == 0):
+        if (a == 0):
             return
 
         st = self.numStrength['value']
         self.strength = st
         self.numStrengthText.setText("AO Strength = {}".format(st))
-        if(st == 0):
+        if (st == 0):
             return
 
-        self.filter.setAmbientOcclusion(numsamples=s, radius=r, amount=a, strength=st)
-        print("sample count: {} | radius count: {} | amount count: {} | strength count: {}".format(self.samples, self.radius, self.amount, self.strength))
+        self.filter.setAmbientOcclusion(numsamples = s, radius = r, amount = a, strength = st)
+        print("sample count: {} | radius count: {} | amount count: {} | strength count: {}".format(
+            self.samples, self.radius, self.amount, self.strength
+        ))
 
     # WARNING: Won't work with relatively older Panda versions because this is new
     def __changeExposure(self):
@@ -319,7 +372,7 @@ class ToontownShaderManager(DirectFrame):
         print(self.wp.getMouseMode())
         win2mouseWatcher = MouseWatcher()
         ar = 1
-        self.win2 = base.openWindow(props=self.wp, aspectRatio=ar)
+        self.win2 = base.openWindow(props = self.wp, aspectRatio = ar)
         self.window2render2d = NodePath('window2render2d')
         self.window2render2d.setDepthTest(0)
         self.window2render2d.setDepthWrite(0)
@@ -335,7 +388,6 @@ class ToontownShaderManager(DirectFrame):
         mk = base.dataRoot.attachNewNode(MouseAndKeyboard(self.win2, 0, name))
         mw = mk.attachNewNode(MouseWatcher(name))
         self.window2aspect2d.node().setMouseWatcher(mw.node())
-
 
 
 ######

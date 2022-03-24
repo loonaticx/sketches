@@ -9,14 +9,16 @@ from direct.gui.DirectGui import *
 import sys, os
 import ToontownShaderManager
 from panda3d.core import loadPrcFileData
+
 loadPrcFileData('', 'model-path $RESOURCE_DIR')
 loadPrcFileData('', 'default-antialias-enable 1')
 loadPrcFileData('', 'framebuffer-multisample 1')
-#loadPrcFileData('', 'want-pstats #t')
+# loadPrcFileData('', 'want-pstats #t')
 # We need to import the tkinter library to
 # disable the tk window that pops up.
 # We use tk for the file path selector.
 import tkinter as tk
+
 root = tk.Tk()
 root.withdraw()
 
@@ -40,11 +42,9 @@ class generate(ShowBase):
         self.modelNodesExist = False
         self.XYZAxis = loader.loadModel("models/misc/xyzAxis.bam")
         self.showNode = NodePath()
-        self.tsm= ToontownShaderManager.ToontownShaderManager(base.aspect2d)
+        self.tsm = ToontownShaderManager.ToontownShaderManager(base.aspect2d)
 
         self.xyz = None
-
-
 
         self.accept('o', base.oobe)
 
@@ -56,24 +56,25 @@ class generate(ShowBase):
         self.accept('c', self.clearScene)
         self.accept('s', base.screenshot)
 
-
         self.accept('1', base.toggleWireframe)
         self.accept('2', base.toggleTexture)
         self.accept('3', self.toggleVertexPainting)
 
-
-
-
-
     def loadGUI(self):
-        self.topButton = DirectButton(text=("Load model"),
-                 scale=0.05, pos=(0, 0, -0.90), parent=base.aspect2d, command=self.loadFile)
+        self.topButton = DirectButton(
+            text = ("Load model"),
+            scale = 0.05,
+            pos = (0, 0, -0.90),
+            parent = base.aspect2d,
+            command = self.loadFile
+        )
 
     def browseModel(self):
         path = Path(askopenfilename(filetypes = (
             ("Image Files", "*.egg;*.bam"),
             ("EGG", "*.egg"),
-            ("BAM", "*.bam"))))
+            ("BAM", "*.bam")
+        )))
         return path
 
     def loadFile(self):
@@ -125,7 +126,6 @@ class generate(ShowBase):
             render.clearAttrib(CullFaceAttrib)
             self.frontfaceCullingEnabled = False
 
-
     def toggleTightBounds(self):
         if not self.tightboundsToggled or self.boundsToggled:
             for node in render.getChild(0).getChildren():
@@ -157,7 +157,7 @@ class generate(ShowBase):
             for node in render.findAllMatches('**/+OccluderNode'):
                 self.occluderExist = True
                 self.occludersEnabled = True
-                node.show() # i haven't seen an occluder node before so idk if they have any geom
+                node.show()  # i haven't seen an occluder node before so idk if they have any geom
                 print("Found occluder node: {}".format(node))
                 print("Occluders enabled")
             if not self.occluderExist:
@@ -173,10 +173,10 @@ class generate(ShowBase):
             for node in render.findAllMatches('**/+ModelNode'):
                 self.modelNodesExist = True
                 self.modelNodesEnabled = True
-                self.xyz = self.XYZAxis.instanceTo(node) #copyTo bad
+                self.xyz = self.XYZAxis.instanceTo(node)  # copyTo bad
                 self.xyz.setPos(node.getPos())
                 self.xyz.setHpr(node.getHpr())
-                node.show() # most of the time there's no geometry.
+                node.show()  # most of the time there's no geometry.
                 print("Found ModelNode: {} at pos:{} hpr:{}".format(node, node.getPos(), node.getHpr()))
                 print("ModelNodes visible")
             if not self.modelNodesExist:
@@ -192,7 +192,7 @@ class generate(ShowBase):
 
     def listNodes(self):
         if self.model is None:
-            return # can't return nodes of something that doesn't exist
+            return  # can't return nodes of something that doesn't exist
         print()
         print("-x-x-x-x-x-x-x-x-x-x-x-x-")
         self.model.ls()

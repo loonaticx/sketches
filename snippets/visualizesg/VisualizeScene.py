@@ -5,13 +5,16 @@ import pydot
 import cv2
 import numpy as np
 
+
 class VisualizeScene():
     def __init__(self):
         pass
 
     def showSceneGraph(self, np):
-        plt.figure(figsize=(20,20))
-        plt.imshow(self.draw_scene_graph(np)) # if this doesnt work we can do base.render but then we would have to pass the showbase instance
+        plt.figure(figsize = (20, 20))
+
+        # if this doesnt work we can do base.render but then we would have to pass the showbase instance
+        plt.imshow(self.draw_scene_graph(np))
         plt.savefig("SceneGraph.png")
         plt.title("Scene Graph")
         plt.show()
@@ -33,8 +36,7 @@ class VisualizeScene():
             label += '{}={:.2f}\n'.format(key, value)
         return label
 
-
-    def draw_scene_graph(self, rootnode: p3d.NodePath, graph: pydot.Dot = None, node_idx=0):
+    def draw_scene_graph(self, rootnode: p3d.NodePath, graph: pydot.Dot = None, node_idx = 0):
         """
         A simple visualization function for the scene graph
 
@@ -44,15 +46,15 @@ class VisualizeScene():
         :return: image of the graph
         """
         if graph is None:
-            graph = pydot.Dot('my_graph', graph_type='graph', bgcolor='white')
+            graph = pydot.Dot('my_graph', graph_type = 'graph', bgcolor = 'white')
         label = rootnode.name
         info_label = self.get_label(rootnode)
         if info_label != '':
             label += '\n' + info_label
 
-        graph.add_node(pydot.Node(str(rootnode), shape='circle', label=label))
+        graph.add_node(pydot.Node(str(rootnode), shape = 'circle', label = label))
         if len(rootnode.ancestors) > 1:
-            graph.add_edge(pydot.Edge(str(rootnode.ancestors[1]), str(rootnode), color='blue'))
+            graph.add_edge(pydot.Edge(str(rootnode.ancestors[1]), str(rootnode), color = 'blue'))
 
         for childnode in rootnode.children:
             self.draw_scene_graph(childnode, graph, node_idx + 1)
