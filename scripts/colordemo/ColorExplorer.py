@@ -149,6 +149,7 @@ class ColorExplorer(ShowBase):
         self.clearScene()
         self.model = loader.loadModel(file)
         self.model.reparentTo(render)
+        # todo: self.colorR = self.model.getColor
         print("========================================")
         print("Loaded {}".format(file))
 
