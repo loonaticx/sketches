@@ -16,9 +16,13 @@ class UVExplorer:
     def __init__(self, filename):
         self.egg = EggData()
         self.egg.read(filename)
+        # print(str(self.egg))
+
         uvList, binormalList = self.get_uvs(self.egg)
         plt.grid(True)
         plt.title(self.egg.egg_filename.getBasenameWoExtension())
+        with open("egg_text_export.egg", "w") as egg_file:
+            egg_file.write(str(self.egg))
 
         ax = plt.gca()
         ax.set_xlim([0, 1])
@@ -66,6 +70,11 @@ class UVExplorer:
         testarrX = []
         testarrY = []
 
+        global identification
+        identification = {
+            # child.getParent().getName(): { "vertexId": [ U, V ] }
+        }
+
         # global color
         # color = (random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1))
         def traverse_egg(egg):
@@ -73,6 +82,7 @@ class UVExplorer:
             global found
             global name2Color
             global testarrX, testarrY
+            global identification
 
             # global color
 
@@ -98,16 +108,19 @@ class UVExplorer:
                     # Random color for node differentiation
                     if not name2Color.get(child.getParent().getName()):
                         name2Color[child.getParent().getName()] = (
-                        random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1))
+                        random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1)
+                        )
 
                     color = name2Color[child.getParent().getName()]
 
-                    # print(child.getParent().getName())
+                    if not identification.get(child.getParent().getName()):
+                        identification[child.getParent().getName()] = {}
+                    nodeIdentification = identification[child.getParent().getName()]
+
                     if not cstrips.get(hash(str(color))):
                         cstrips[hash(str(color))] = []
-                    # print(f"Guh - {isinstance(child, EggVertexPool)}")
+
                     # Ideally, we need to get vertex ids 0, 1, 2 from the group tt_r..blah
-                    # print(child.getPool())
                     uvList = []
                     # or getPool...
                     for egg_vertex in child.getVertices():
@@ -124,7 +137,9 @@ class UVExplorer:
                               // def_shadow:1
                             }
                             """
-                            # print(egg_vertex)
+                            print(egg_vertex)
+                            nodeIdentification[egg_vertex] = egg_vertex.getUv()
+
                             # print(f"dimensions = {egg_vertex.getNumDimensions()}")
 
                             # uv_normalized = v_uv.normalized()
@@ -141,8 +156,6 @@ class UVExplorer:
                                     egg_vertex.getUv()[1] == 0:
                                 continue
                             x, y = egg_vertex.getUv()
-                            # x *= 100
-                            # y *= 100
                             uvList.append(egg_vertex.getUv())
                             # -k, mfc='C1', mec='C1',
                             cstrips[hash(str(color))].append([x, y])
@@ -185,17 +198,7 @@ class UVExplorer:
 
                     xx = np.vstack([xlist[0::2], xlist[1::2]])
                     yy = np.vstack([ylist[0::2], ylist[1::2]])
-                    # print(f"XX - {xx} | YY - {yy}")
-                    # bx, by = bbox
-                    # bxlist = np.array(bx)
-                    # bylist = np.array(by)
-                    # bxx = np.vstack([bxlist[0::2], bxlist[1::2]])
-                    # byy = np.vstack([bylist[0::2], bylist[1::2]])
-                    # rect = patches.Rectangle(bbox[0], bbox[1][0], bbox[1][1], linewidth=1, edgecolor='r', fc=(1,0,
-                    # 0,0.5))
-                    # Create figure and axes
-                    # fig, ax = plt.subplots(1)
-                    # ax.add_patch(rect)
+
                     plt.plot(xx, yy, '-o', c = color)
                     pass
 
@@ -207,182 +210,77 @@ class UVExplorer:
         twoArr = np.array([testarrX, testarrY])
         print(testarrX)
 
+        # avoid true zero values
+        padding = 0.001
+
         # this bounding box is for the original uv layout -- consider this when cropping images
         bbox = self.bounding_box(twoArr)
         xMin, yMin = bbox[0]
+        xMin += padding
+        yMin -= padding
         xMax, yMax = bbox[1]
+        xMax -= padding
+        yMax += padding
         plt.plot(xMin, yMin, '-o', color = "blue")
         plt.plot(xMax, yMax, '-o', color = "blue")
 
-        img = Image.open("testeggs/avatar_palette_4alla_1.png")
-        width, height = img.size
+        # using nodeIdentification for now since there is only one entry in identification (focusing on 1 poly grp rn)
+        nodeID = identification[[*identification.keys()][0]]
+        print(f"NODEID = {nodeID}")
 
-        # Cropped out area, we should keep note of this new image size.
-        boundsLocation = (width * xMin, abs(height - (height * yMax)), width * xMax, abs(height - (height * yMin)))
+        scale = max(xMax - xMin, yMax - yMin)
+        for vertex, uvCoords in nodeID.items():
+            # print(f"VErtex1-  {vertex}")
 
-        boundsMin = (round(width * xMin), round(abs(height - (height * yMax))))
-        boundsMax = (round(width * xMax), round(abs(height - (height * yMin))))
+            xVal, yVal = uvCoords
+            newX = xVal - ((xMax + xMin) / 2)
+            newX /= scale
+            newX += 0.5
+            newY = yVal - ((yMax + yMin) / 2)
+            newY /= scale
+            newY += 0.5
+            vertex.set_uv(LPoint2d(newX, newY))
 
-        print(f"BBBB - {boundsLocation}")
-        img2 = img.crop(boundsLocation)
-        croppedWidth, croppedHeight = img2.size
-        img2.save("testcrop.png")
+            print(f"VErtex2-  {vertex.get_uv()}")
 
-        # for future images: we need to seriously normalize the bounding box of the uvs and then crop
-        # the input images to the size of the bounding box (WRT the input dimensions), because things like
-        # margining or extra unused space on edges of the texture will not be factored into the equation!
 
-        inputImg = Image.open("sample_gui.png")
-        # WARNING: this may have unintended side effects with alpha images (refer to housekeeper)
-        inputImg = inputImg.resize(img2.size)
+        scaledXArr = []
+        scaledYArr = []
 
-        origImg = img.copy()
-        origImg.paste(inputImg, (boundsMin[0], boundsMin[1], boundsMax[0], boundsMax[1]))
-        # origImg.show()
-        origImg.save("testaggregate.png")
+        for xVal in testarrX:
+            centerVal = xVal - ((xMax + xMin) / 2)
+            # Scale down such that the larger of the two ranges becomes (-0.5, 0.5)
+            scale = max(xMax - xMin, yMax - yMin)
+            centerVal /= scale
+            centerVal += 0.5
 
-        print(f"Cropping to {width * xMin} x {height * yMin} - {width * xMax} x {height * yMax}")
+            # centerVal =(xVal - xMin) / (xMax - xMin)
+            scaledXArr.append(centerVal)
 
-        norm = np.linalg.norm(twoArr, 1, keepdims = True)
 
-        twoArr /= norm
+        for yVal in testarrY:
+            centerVal = yVal - ((yMax + yMin) / 2)
+            # Scale down such that the larger of the two ranges becomes (-0.5, 0.5)
+            scale = max(xMax - xMin, yMax - yMin)
+            centerVal /= scale
+            centerVal += 0.5
+
+            # centerVal = (yVal - yMin)/(yMax - yMin)
+            scaledYArr.append(centerVal)
 
         # [(bot_left_x, bot_left_y), (top_right_x, top_right_y)]
         bbox = self.bounding_box(twoArr)
         xMin, yMin = bbox[0]
         xMax, yMax = bbox[1]
         print(f"{xMin} - {yMin} - {xMax} - {yMax}")
-        # plt.plot(bbox, '-o', c = "red")
-        # plt.plot(xMin, yMin, '-o', color="black")
-        # plt.plot(xMax, yMax, '-o', color="black")
 
-        scaledXArr = []
-        scaledYArr = []
-        print(f"(xMax + xMin)  = {(xMax + xMin)}")
-        offsetX = 1 - (xMax + xMin)
-        # offsetX = 1
-        offsetY = 1 - (yMax + yMin)
-        # offsetY = 1
-
-        for xVal in testarrX:
-            # xVal /= norm
-            centerVal = xVal - (xMax + xMin) / 2
-            centerVal += (xMax - xMin)
-
-            centerVal = (centerVal - xMin) / (xMin - xMax)
-
-            # centerVal += 2
-
-            # does the fun scaling
-            # centerVal /= max(xMax - xMin, yMax - yMin)
-
-            # centerVal = abs(centerVal - math.ceil(centerVal))
-
-            # centerVal /= 0.2
-
-            # centerVal -= round(xMax)
-            # centerVal += 0.5
-            scaledXArr.append(centerVal)
-
-        newXMax = xMax + (xMax - xMin)
-
-        for yVal in testarrY:
-            # yVal /= norm
-            centerVal = yVal - (yMax + yMin) / 2
-            centerVal += (yMax - yMin)
-
-            print(f"CV = {centerVal}")
-            print(f"C = {centerVal / max(xMax - xMin, yMax - yMin)}")
-            print(f"Ceil - {math.ceil(max(xMax - xMin, yMax - yMin))}")
-            # centerVal /= max(xMax - xMin, yMax - yMin)
-
-            # centerVal = abs(centerVal - math.ceil(centerVal))
-
-            centerVal = (centerVal - yMin) / (yMin - yMax)
-            # centerVal += 2
-
-            # does the fun scaling
-            # centerVal /= max(xMax - xMin, yMax - yMin)
-            # centerVal /= 0.2
-
-            # centerVal += 0.5
-            # centerVal -= round(yMax)
-
-            scaledYArr.append(centerVal)
 
         twoArr = np.array([scaledXArr, scaledYArr])
+        # twoArr *= 0.98
         bbox = self.bounding_box(twoArr)
         xMin, yMin = bbox[0]
         xMax, yMax = bbox[1]
-        # plt.plot(xMin, yMin, '-o', color="black")
-        # plt.plot(xMax, yMax, '-o', color="black")
-        #
-        # newXArr = []
-        # newYArr = []
-        # for xVal in scaledXArr:
-        #     centerVal = xVal
-        #     centerVal /= max(xMax - xMin, yMax - yMin)
-        #     newXArr.append(centerVal)
-        #
-        # for yVal in scaledYArr:
-        #     centerVal = yVal
-        #     centerVal /= max(xMax - xMin, yMax - yMin)
-        #     newYArr.append(centerVal)
-        #
-        # twoArr = np.array([newXArr, newYArr])
 
-        # twoArr /= max(xMax - xMin, yMax - yMin)
-        twoArr /= 2
-        twoArr *= -1
-
-        # twoArr += 1
-
-        print(f"norm - {norm}")
-
-        # norm = np.linalg.norm(twoArr, 1, (0, 1))
-        # twoArr /= norm
-
-        # norm = np.linalg.norm([[xMin, yMin], [xMax, yMax]], 1, (0, 1))
-        # twoArr /= norm
-
-        # print(bbox)
-        # plt.plot(bbox[0][0], bbox[0][1], '-ok', mfc = 'C1')
-        # plt.plot(bbox[1][0], bbox[1][1], '-ok', mfc = 'C1')
-        # 186.73092127
-        # 186.73092127
-        # np.append(twoArr, bbox[0])
-        # np.append(twoArr, bbox[1])
-
-        # np.append(twoArr, bbox[0][0], 0)
-        # np.append(twoArr, bbox[1][0], 0)
-        # np.append(twoArr, bbox[0][1], 1)
-        # np.append(twoArr, bbox[1][1], 1)
-        # twoArr[0].append(bbox[0][0])
-        # twoArr[0].append(bbox[1][0])
-        # twoArr[1].append(bbox[0][1])
-        # twoArr[1].append(bbox[1][1])
-
-        # twoArr.concatenate(bbox[0])
-        # twoArr.concatenate(bbox[1])
-
-        # x, y = np.where(twoArr)
-        # print(x)
-
-        # rows = np.any(twoArr, axis = 1)
-        # cols = np.any(twoArr, axis = 0)
-        # rmin, rmax = np.where(rows)[0][[0, -1]]
-        # cmin, cmax = np.where(cols)[0][[0, -1]]
-
-        # xMin, xMax = np.where(testarrX)[0][[0, -1]]
-        # yMin, yMax = np.where(testarrY)[0][[0, -1]]
-        # print(twoArr)
-        # print(f"rmin - {rmin} | rmax - {rmax} | cmin - {cmin} | cmax - {cmax}")
-        # plt.plot(xMin, xMax, '-o', mfc='C1')
-        # plt.plot(yMin, yMax, '-o', mfc='C1')
-
-        norm = np.linalg.norm(twoArr, 1)
-        print(f"Norm = {norm}")
-        # normalized_array = twoArr / norm
         normalized_array = twoArr
 
         # print(normalized_array)
@@ -430,4 +328,4 @@ class UVExplorer:
 
 target_path = os.getcwd()
 # tt_r_ara_ttc_hydrant
-uve = UVExplorer(Filename.fromOsSpecific(os.path.join(target_path, "testeggs/dialog_box_gui.egg")))
+uve = UVExplorer(Filename.fromOsSpecific(os.path.join(target_path, "testeggs/target.egg")))
