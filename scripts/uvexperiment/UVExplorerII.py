@@ -1,3 +1,4 @@
+import copy
 from eggtools.EggMan import EggMan
 import os
 from panda3d.core import *
@@ -10,19 +11,28 @@ from PIL import Image
 
 import math
 
+# avoid true zero values
+padding = 0.001
 
 # https://www.albany.edu/faculty/jmower/geog/gog530Python/src/NormalizingCoordinatesManual.html
 class UVExplorer:
-    def __init__(self, filename):
-        self.egg = EggData()
-        self.egg.read(filename)
-        # print(str(self.egg))
+    def __init__(self, eggman):
+        # self.egg = EggData()
+        # self.egg.read(filename)
 
-        uvList, binormalList = self.get_uvs(self.egg)
-        plt.grid(True)
-        plt.title(self.egg.egg_filename.getBasenameWoExtension())
-        with open("egg_text_export.egg", "w") as egg_file:
-            egg_file.write(str(self.egg))
+        # print(str(self.egg))
+        self.eggman = eggman
+
+        # Sanitize the eggs first
+        self.eggman.rename_all_trefs()
+
+        for egg in self.eggman.egg_datas.keys():
+            uvList, binormalList = self.get_uvs(egg)
+            plt.grid(True)
+            plt.title(egg.egg_filename.getBasenameWoExtension())
+            self.eggman.write_egg_manually(egg, custom_suffix = "test1233.egg")
+            # with open("egg_text_export.egg", "w") as egg_file:
+            #     egg_file.write(str(self.egg))
 
         ax = plt.gca()
         ax.set_xlim([0, 1])
@@ -44,10 +54,10 @@ class UVExplorer:
         bot_left_y = min(point for point in y)
         top_right_x = max(point for point in x)
         top_right_y = max(point for point in y)
-        print("BBox")
-        print(points)
-        print(bot_left_x)
-        print([point for point in x])
+        # print("BBox")
+        # print(points)
+        # print(bot_left_x)
+        # print([point for point in x])
 
         return [(bot_left_x, bot_left_y), (top_right_x, top_right_y)]
 
@@ -56,6 +66,9 @@ class UVExplorer:
         binormalList = []
 
         random.seed("absdddc")
+
+        global textureNames
+        textureNames = {}
 
         global tex2UV
         tex2UV = {}
@@ -72,7 +85,7 @@ class UVExplorer:
 
         global identification
         identification = {
-            # child.getParent().getName(): { "vertexId": [ U, V ] }
+            # child.getParent(): { "vertexId": [ U, V ] }
         }
 
         # global color
@@ -83,11 +96,12 @@ class UVExplorer:
             global name2Color
             global testarrX, testarrY
             global identification
+            global textureNames
 
             # global color
 
-            if found:
-                return
+            # if found:
+            #     return
 
             for child in egg.getChildren():
                 if isinstance(child, EggGroupNode):
@@ -105,6 +119,16 @@ class UVExplorer:
                     }
                     """
 
+                    # { EggGroupName { { Polygon_TREFNAME : { "vertexID" : [ U, V ] } } }
+                    # For now can we only use one tref for Polygon entries, even though having more is possible
+                    polyTexture = child.getTexture()
+                    if not polyTexture:
+                        continue
+
+                    texName = polyTexture.getName()
+                    if texName not in textureNames.keys():
+                        textureNames[texName] = polyTexture
+
                     # Random color for node differentiation
                     if not name2Color.get(child.getParent().getName()):
                         name2Color[child.getParent().getName()] = (
@@ -113,9 +137,16 @@ class UVExplorer:
 
                     color = name2Color[child.getParent().getName()]
 
+                    # Check to see if parent group name exists first...
                     if not identification.get(child.getParent().getName()):
                         identification[child.getParent().getName()] = {}
+
                     nodeIdentification = identification[child.getParent().getName()]
+                    if not nodeIdentification.get(polyTexture.getName()):
+                        nodeIdentification[polyTexture.getName()] = {}
+                    nodeIdentification = nodeIdentification[polyTexture.getName()]
+
+
 
                     if not cstrips.get(hash(str(color))):
                         cstrips[hash(str(color))] = []
@@ -137,24 +168,9 @@ class UVExplorer:
                               // def_shadow:1
                             }
                             """
-                            print(egg_vertex)
+                            # print(egg_vertex)
                             nodeIdentification[egg_vertex] = egg_vertex.getUv()
 
-                            # print(f"dimensions = {egg_vertex.getNumDimensions()}")
-
-                            # uv_normalized = v_uv.normalized()
-
-                            # egg_vertex.set_uv(uv_normalized.project(v_uv))
-
-                            # egg_vertex.set_uv(v_uv.project(uv_normalized))
-                            uv_obj = egg_vertex.get_uv_obj("")
-                            if uv_obj.has_binormal():
-                                binormalList.append(uv_obj.get_binormal())
-                                print(uv_obj.get_binormal())
-                            if egg_vertex.getUv()[0] == 1 or egg_vertex.getUv()[0] == 0 or egg_vertex.getUv()[1] == 1\
-                                    or \
-                                    egg_vertex.getUv()[1] == 0:
-                                continue
                             x, y = egg_vertex.getUv()
                             uvList.append(egg_vertex.getUv())
                             # -k, mfc='C1', mec='C1',
@@ -163,11 +179,6 @@ class UVExplorer:
 
                     xlist = []
                     ylist = []
-                    # bbox = self.bounding_box(uvList)
-
-                    # print(f"bbox = {bbox}")
-                    # print(child.getTextures())
-                    # print(child.getVertices())
 
                     colLists = cstrips[hash(str(color))]  # [ [1,2] [3,4] ]
                     for coords in colLists:
@@ -203,15 +214,87 @@ class UVExplorer:
                     pass
 
         traverse_egg(eggFile)
+        i = 0
 
-        # https://stackoverflow.com/questions/2450035/scale-2d-coordinates-and-keep-their-relative-euclidean
-        # -distances-intact
+        for nodeGroup in identification.keys():
+            nodeTextures = identification[nodeGroup]  # Contains EggTextures
+            print(f"Ddd - {nodeTextures}")
+            print(f"nodeGroup - {nodeGroup}")
+            # Eggman ends up generating new textures so we need to create a snapshot
+            # nodeTexSnapshot = copy.deepcopy(nodeTextures)
+            nodeTexNames = list(nodeTextures.keys())
+            # print(f"nodeTexSnapshot - {nodeTexSnapshot}")
+
+            for nodeTexName in nodeTexNames:
+                nodeID = nodeTextures[nodeTexName]  # Contains [ EggVertex: [U, V] ]
+                nodeTex = textureNames[nodeTexName]  # note: not connected to our working egg
+                # nodeTex = self.eggman.get_texture_by_name(eggFile, nodeTexName)
+                # nodeTex = eggFile.getTexture(nodeTexName)
+                # We need to get the bounding box
+                # This is not the best way to do this but whatever
+                allX = []
+                allY = []
+                # allX = allY = []
+                for u, v in nodeID.values():
+                    allX.append(u)
+                    allY.append(v)
+
+                # this bounding box is for the original uv layout -- consider this when cropping images
+                bbox = self.bounding_box(np.array([allX, allY]))
+                xMin, yMin = bbox[0]
+                xMax, yMax = bbox[1]
+
+                plt.plot(xMin, yMin, '-o', color = "red")
+                plt.plot(xMax, yMax, '-o', color = "black")
+
+                textureImage = Image.open(nodeTex.getFullpath())
+                width, height = textureImage.size
+                # Cropped out area, we should keep note of this new image size.
+                boundsLocation = (
+                    width * xMin, abs(height - (height * yMax)), width * xMax, abs(height - (height * yMin))
+                )
+                img2 = textureImage.crop(boundsLocation)
+                croppedImagePath = os.path.join(
+                    eggFile.egg_filename.getDirname(),
+                    nodeTex.getFilename().getBasenameWoExtension() + f"_cropped_{i}.png"
+                )
+                img2.save(Filename.toOsSpecific(Filename.fromOsSpecific(croppedImagePath)), quality=100)
+                i += 1
+
+                # TODO:
+                # Some meshes will need new EggTextures generated and assigned instead of being swapped
+                # ( See bathtub bed )
+                xMin += padding
+                yMin -= padding
+                xMax -= padding
+                yMax += padding
+                scale = max(xMax - xMin, yMax - yMin)
+                # print(f"x - {xMax - xMin} | y - {yMax - yMin} --> {scale}")
+                for vertex, uvCoords in nodeID.items():
+                    xVal, yVal = uvCoords
+                    newX = xVal - ((xMax + xMin) / 2)
+                    newX /= xMax - xMin
+                    # newX /= scale
+                    newX += 0.5
+                    newY = yVal - ((yMax + yMin) / 2)
+                    # newY /= scale
+                    newY /= yMax - yMin
+                    newY += 0.5
+                    vertex.set_uv(LPoint2d(newX, newY))
+
+                nodeTex = self.eggman.get_texture_by_name(eggFile, nodeTexName)
+                self.eggman.repath_egg_texture(eggFile, nodeTex, Filename.fromOsSpecific(croppedImagePath))
+                # self.eggman.fix_broken_texpaths(eggFile)
+                # We will clamp the edges, sometimes the values are ever so slightly out of the 0:1 area
+                nodeTex.setWrapU(EggTexture.WM_clamp)
+                nodeTex.setWrapV(EggTexture.WM_clamp)
+
+        return uvList, binormalList
+        # https://stackoverflow.com/questions/2450035/scale-2d-coordinates-and-keep-their-relative-euclidean-distances-intact
 
         twoArr = np.array([testarrX, testarrY])
         print(testarrX)
 
-        # avoid true zero values
-        padding = 0.001
 
         # this bounding box is for the original uv layout -- consider this when cropping images
         bbox = self.bounding_box(twoArr)
@@ -221,8 +304,8 @@ class UVExplorer:
         xMax, yMax = bbox[1]
         xMax -= padding
         yMax += padding
-        plt.plot(xMin, yMin, '-o', color = "blue")
-        plt.plot(xMax, yMax, '-o', color = "blue")
+        plt.plot(xMin, yMin, '-o', color = "black")
+        plt.plot(xMax, yMax, '-o', color = "black")
 
         # using nodeIdentification for now since there is only one entry in identification (focusing on 1 poly grp rn)
         nodeID = identification[[*identification.keys()][0]]
@@ -230,8 +313,6 @@ class UVExplorer:
 
         scale = max(xMax - xMin, yMax - yMin)
         for vertex, uvCoords in nodeID.items():
-            # print(f"VErtex1-  {vertex}")
-
             xVal, yVal = uvCoords
             newX = xVal - ((xMax + xMin) / 2)
             newX /= scale
@@ -240,8 +321,6 @@ class UVExplorer:
             newY /= scale
             newY += 0.5
             vertex.set_uv(LPoint2d(newX, newY))
-
-            print(f"VErtex2-  {vertex.get_uv()}")
 
 
         scaledXArr = []
@@ -328,4 +407,9 @@ class UVExplorer:
 
 target_path = os.getcwd()
 # tt_r_ara_ttc_hydrant
-uve = UVExplorer(Filename.fromOsSpecific(os.path.join(target_path, "testeggs/target.egg")))
+from eggtools.EggMan import EggMan
+eggman = EggMan(
+    [Filename.fromOsSpecific(os.path.join(target_path, "sample2/toon_cannon.egg"))]
+    # [os.path.join(target_path, "testeggs")]
+)
+uve = UVExplorer(eggman)
